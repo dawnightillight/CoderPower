@@ -1,0 +1,347 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DD2150DD1C0C01A30029A779 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2150DC1C0C01A30029A779 /* AppKit.framework */; settings = {ASSET_TAGS = (); }; };
+		DD2150DF1C0C01A30029A779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2150DE1C0C01A30029A779 /* Foundation.framework */; settings = {ASSET_TAGS = (); }; };
+		DD2150E31C0C01A30029A779 /* CoderPower.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = DD2150E21C0C01A30029A779 /* CoderPower.xcscheme */; };
+		DD2150E61C0C01A30029A779 /* CoderPower.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150E51C0C01A30029A779 /* CoderPower.m */; };
+		DD2150E91C0C01A30029A779 /* NSObject_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150E81C0C01A30029A779 /* NSObject_Extension.m */; };
+		DD2150F71C0C03FD0029A779 /* CDPUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150F61C0C03FD0029A779 /* CDPUserInfoManager.m */; settings = {ASSET_TAGS = (); }; };
+		DD2150FA1C0C04460029A779 /* NSNumber+Append.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150F91C0C04460029A779 /* NSNumber+Append.m */; settings = {ASSET_TAGS = (); }; };
+		DD2150FD1C0C04EB0029A779 /* CDPViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150FC1C0C04EB0029A779 /* CDPViewAnimation.m */; settings = {ASSET_TAGS = (); }; };
+		DD2151001C0C05060029A779 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150FF1C0C05060029A779 /* NSView+BackgroundColor.m */; settings = {ASSET_TAGS = (); }; };
+		DD2151031C0C30300029A779 /* CDPMainMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2151021C0C30300029A779 /* CDPMainMenuItem.m */; settings = {ASSET_TAGS = (); }; };
+		DD5ED50E1C0C8194004D4D93 /* CDPDot.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5ED50D1C0C8194004D4D93 /* CDPDot.m */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		DD2150D91C0C01A30029A779 /* CoderPower.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoderPower.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		DD2150DC1C0C01A30029A779 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		DD2150DE1C0C01A30029A779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		DD2150E21C0C01A30029A779 /* CoderPower.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = CoderPower.xcscheme; path = CoderPower.xcodeproj/xcshareddata/xcschemes/CoderPower.xcscheme; sourceTree = SOURCE_ROOT; };
+		DD2150E41C0C01A30029A779 /* CoderPower.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoderPower.h; sourceTree = "<group>"; };
+		DD2150E51C0C01A30029A779 /* CoderPower.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoderPower.m; sourceTree = "<group>"; };
+		DD2150E71C0C01A30029A779 /* NSObject_Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObject_Extension.h; sourceTree = "<group>"; };
+		DD2150E81C0C01A30029A779 /* NSObject_Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObject_Extension.m; sourceTree = "<group>"; };
+		DD2150EA1C0C01A30029A779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD2150F51C0C03FD0029A779 /* CDPUserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPUserInfoManager.h; sourceTree = "<group>"; };
+		DD2150F61C0C03FD0029A779 /* CDPUserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPUserInfoManager.m; sourceTree = "<group>"; };
+		DD2150F81C0C04460029A779 /* NSNumber+Append.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Append.h"; sourceTree = "<group>"; };
+		DD2150F91C0C04460029A779 /* NSNumber+Append.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Append.m"; sourceTree = "<group>"; };
+		DD2150FB1C0C04EB0029A779 /* CDPViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPViewAnimation.h; sourceTree = "<group>"; };
+		DD2150FC1C0C04EB0029A779 /* CDPViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPViewAnimation.m; sourceTree = "<group>"; };
+		DD2150FE1C0C05060029A779 /* NSView+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+BackgroundColor.h"; sourceTree = "<group>"; };
+		DD2150FF1C0C05060029A779 /* NSView+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+BackgroundColor.m"; sourceTree = "<group>"; };
+		DD2151011C0C30300029A779 /* CDPMainMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPMainMenuItem.h; sourceTree = "<group>"; };
+		DD2151021C0C30300029A779 /* CDPMainMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPMainMenuItem.m; sourceTree = "<group>"; };
+		DD2151041C0C32810029A779 /* Defination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defination.h; sourceTree = "<group>"; };
+		DD5ED50C1C0C8194004D4D93 /* CDPDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPDot.h; sourceTree = "<group>"; };
+		DD5ED50D1C0C8194004D4D93 /* CDPDot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPDot.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD2150D71C0C01A30029A779 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD2150DD1C0C01A30029A779 /* AppKit.framework in Frameworks */,
+				DD2150DF1C0C01A30029A779 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD2150D01C0C01A30029A779 = {
+			isa = PBXGroup;
+			children = (
+				DD2150E01C0C01A30029A779 /* CoderPower */,
+				DD2150DB1C0C01A30029A779 /* Frameworks */,
+				DD2150DA1C0C01A30029A779 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD2150DA1C0C01A30029A779 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DD2150D91C0C01A30029A779 /* CoderPower.xcplugin */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD2150DB1C0C01A30029A779 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DD2150DC1C0C01A30029A779 /* AppKit.framework */,
+				DD2150DE1C0C01A30029A779 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DD2150E01C0C01A30029A779 /* CoderPower */ = {
+			isa = PBXGroup;
+			children = (
+				DD2150F01C0C02180029A779 /* Classes */,
+				DD2150E41C0C01A30029A779 /* CoderPower.h */,
+				DD2150E51C0C01A30029A779 /* CoderPower.m */,
+				DD2151041C0C32810029A779 /* Defination.h */,
+				DD2150EA1C0C01A30029A779 /* Info.plist */,
+				DD2150E71C0C01A30029A779 /* NSObject_Extension.h */,
+				DD2150E81C0C01A30029A779 /* NSObject_Extension.m */,
+				DD2150E11C0C01A30029A779 /* Supporting Files */,
+			);
+			path = CoderPower;
+			sourceTree = "<group>";
+		};
+		DD2150E11C0C01A30029A779 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD2150E21C0C01A30029A779 /* CoderPower.xcscheme */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DD2150F01C0C02180029A779 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DD2150F21C0C027D0029A779 /* Category */,
+				DD5ED50C1C0C8194004D4D93 /* CDPDot.h */,
+				DD5ED50D1C0C8194004D4D93 /* CDPDot.m */,
+				DD2151011C0C30300029A779 /* CDPMainMenuItem.h */,
+				DD2151021C0C30300029A779 /* CDPMainMenuItem.m */,
+				DD2150F51C0C03FD0029A779 /* CDPUserInfoManager.h */,
+				DD2150F61C0C03FD0029A779 /* CDPUserInfoManager.m */,
+				DD2150FB1C0C04EB0029A779 /* CDPViewAnimation.h */,
+				DD2150FC1C0C04EB0029A779 /* CDPViewAnimation.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		DD2150F21C0C027D0029A779 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				DD2150F81C0C04460029A779 /* NSNumber+Append.h */,
+				DD2150F91C0C04460029A779 /* NSNumber+Append.m */,
+				DD2150FE1C0C05060029A779 /* NSView+BackgroundColor.h */,
+				DD2150FF1C0C05060029A779 /* NSView+BackgroundColor.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DD2150D81C0C01A30029A779 /* CoderPower */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DD2150ED1C0C01A30029A779 /* Build configuration list for PBXNativeTarget "CoderPower" */;
+			buildPhases = (
+				DD2150D51C0C01A30029A779 /* Sources */,
+				DD2150D61C0C01A30029A779 /* Resources */,
+				DD2150D71C0C01A30029A779 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CoderPower;
+			productName = CoderPower;
+			productReference = DD2150D91C0C01A30029A779 /* CoderPower.xcplugin */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DD2150D11C0C01A30029A779 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Dawn;
+				TargetAttributes = {
+					DD2150D81C0C01A30029A779 = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
+			};
+			buildConfigurationList = DD2150D41C0C01A30029A779 /* Build configuration list for PBXProject "CoderPower" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = DD2150D01C0C01A30029A779;
+			productRefGroup = DD2150DA1C0C01A30029A779 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DD2150D81C0C01A30029A779 /* CoderPower */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DD2150D61C0C01A30029A779 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD2150E31C0C01A30029A779 /* CoderPower.xcscheme in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DD2150D51C0C01A30029A779 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DD2150F71C0C03FD0029A779 /* CDPUserInfoManager.m in Sources */,
+				DD5ED50E1C0C8194004D4D93 /* CDPDot.m in Sources */,
+				DD2150FD1C0C04EB0029A779 /* CDPViewAnimation.m in Sources */,
+				DD2150FA1C0C04460029A779 /* NSNumber+Append.m in Sources */,
+				DD2151031C0C30300029A779 /* CDPMainMenuItem.m in Sources */,
+				DD2150E61C0C01A30029A779 /* CoderPower.m in Sources */,
+				DD2150E91C0C01A30029A779 /* NSObject_Extension.m in Sources */,
+				DD2151001C0C05060029A779 /* NSView+BackgroundColor.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		DD2150EB1C0C01A30029A779 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		DD2150EC1C0C01A30029A779 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+			};
+			name = Release;
+		};
+		DD2150EE1C0C01A30029A779 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
+				INFOPLIST_FILE = CoderPower/Info.plist;
+				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = Dawn.CoderPower;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xcplugin;
+			};
+			name = Debug;
+		};
+		DD2150EF1C0C01A30029A779 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEPLOYMENT_LOCATION = YES;
+				DSTROOT = "$(HOME)";
+				INFOPLIST_FILE = CoderPower/Info.plist;
+				INSTALL_PATH = "/Library/Application Support/Developer/Shared/Xcode/Plug-ins";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = Dawn.CoderPower;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xcplugin;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DD2150D41C0C01A30029A779 /* Build configuration list for PBXProject "CoderPower" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD2150EB1C0C01A30029A779 /* Debug */,
+				DD2150EC1C0C01A30029A779 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DD2150ED1C0C01A30029A779 /* Build configuration list for PBXNativeTarget "CoderPower" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DD2150EE1C0C01A30029A779 /* Debug */,
+				DD2150EF1C0C01A30029A779 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DD2150D11C0C01A30029A779 /* Project object */;
+}

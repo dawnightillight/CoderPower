@@ -1,0 +1,10 @@
+
+*.xcworkspacedata
+
+*.xcuserstate
+
+*.xcbkptlist
+
+*.xcscheme
+
+CoderPower.xcodeproj/xcuserdata/dawn.xcuserdatad/xcschemes/xcschememanagement.plist
