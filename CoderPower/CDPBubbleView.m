@@ -76,14 +76,12 @@
 }
 
 -(void) animate:(long long) deltaTime {
-//	dispatch_async(dispatch_get_main_queue(), ^{
-		for (CDPDotView *dot in self.dots) {
-			CGFloat newX = dot.frame.origin.x + deltaTime * 0.0000001;
-			CGFloat newY = dot.frame.origin.y + deltaTime * 0.0000001;
-			CGRect newRect = CGRectMake(newX, newY, dot.frame.size.width, dot.frame.size.height);
-			dot.frame = newRect;
-		}
-//	});
+	for (CDPDotView *dot in self.dots) {
+		CGFloat newX = dot.frame.origin.x + deltaTime * 0.0000001;
+		CGFloat newY = dot.frame.origin.y + deltaTime * 0.0000001;
+		CGRect newRect = CGRectMake(newX, newY, dot.frame.size.width, dot.frame.size.height);
+		dot.frame = newRect;
+	}
 }
 
 @end
