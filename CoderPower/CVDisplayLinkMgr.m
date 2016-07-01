@@ -11,7 +11,7 @@
 @interface CVDisplayLinkMgr()
 
 @property (nonatomic, assign) CVDisplayLinkRef displayLink;
-@property (atomic, retain) NSMutableArray<id<CDPBubleAnimateDelegate>> *bubleDelegate;
+@property (nonatomic, retain) NSMutableArray<id<CDPBubleAnimateDelegate>> *bubleDelegate;
 
 @end
 
@@ -29,7 +29,6 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	[mgr updateAnimate:deltaTime];
 	return kCVReturnSuccess;
 }
-
 
 +(instancetype) getInstance {
 	static CVDisplayLinkMgr *_instance;
