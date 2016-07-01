@@ -11,7 +11,8 @@
 #import "CDPUserInfoManager.h"
 #import "CDPViewAnimation.h"
 #import "NSNumber+Append.h"
-#import "CDPDot.h"
+#import "CDPBubbleView.h"
+//#import "CDPDot.h"
 
 #define kAnimationTagShake (233)
 
@@ -38,8 +39,8 @@
         self.bundle = plugin;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didApplicationFinishLaunchingNotification:) name:NSApplicationDidFinishLaunchingNotification object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidChangeSelection:) name:NSTextViewDidChangeSelectionNotification object:nil];
-        
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:nil];
+
     }
     return self;
 }
@@ -66,45 +67,53 @@
     }
 }
 
-- (void)textViewDidChangeSelection:(NSNotification *)notification
-{
-    id firstResponder = [[NSApp keyWindow] firstResponder];
-    if (![firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")]) return;
-    
-    [self dealWithTextView:firstResponder];
+- (void)textDidChange:(NSNotification *)notification {
+	if (!notification)
+		return;
+
+	id obj = notification.object;
+	if (!obj || ![obj isKindOfClass:[NSTextView class]])
+		return;
+
+	NSTextView *textView = (NSTextView *)obj;
+	if ([CDPUserInfoManager isOn]) {
+		[self shake];
+		[self bubble:textView];
+	}
 }
 
 #pragma mark - 
 
-- (void)dealWithTextView:(NSTextView *)textView
+- (void)bubble:(NSTextView *)textView
 {
     if (textView != nil && [CDPUserInfoManager isOn]) {
         NSInteger cursorPoint = [[[textView selectedRanges] objectAtIndex:0] rangeValue].location;
         
         NSUInteger count = 1;
         NSRectArray array = [textView.layoutManager rectArrayForCharacterRange:NSMakeRange(cursorPoint, 0)withinSelectedCharacterRange:NSMakeRange(cursorPoint, 0) inTextContainer:textView.textContainer rectCount:&count];
-        NSRect rect = *array;
+		if (count == 0)
+			return;
+
+        NSRect rect = array[0];
         CGPoint actionPosition = NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y);
         
         [self hanabiAt:actionPosition view:textView];
-        
-        // shake
-        if ([CDPUserInfoManager isShakeOn]) {
-             [self shake];
-        }
     }
 }
 
 - (void)hanabiAt:(NSPoint)point view:(NSTextView *)view
 {
-    NSColor *color = [CDPUserInfoManager effectType] == CDPUserInfoEffectTypeWhite ? [NSColor whiteColor] : [NSColor orangeColor];
-    for (int i = 0; i < 10; i++) {
-        CDPDot *dot = [[CDPDot alloc] initWithCenter:point radius:1];
-        dot.backgroundColor = color;
-        [view addSubview:dot];
-        [dot release];
-        [dot animate];
-    }
+	NSRect rect = CGRectMake(point.x - 10, point.y - 40, 20, 40);
+	CDPBubbleView *bubbleView = [[[CDPBubbleView alloc] initWithFrame:view.bounds] autorelease];
+	[view addSubview:bubbleView];
+//    NSColor *color = [CDPUserInfoManager effectType] == CDPUserInfoEffectTypeWhite ? [NSColor whiteColor] : [NSColor orangeColor];
+//    for (int i = 0; i < 10; i++) {
+//        CDPDot *dot = [[CDPDot alloc] initWithCenter:point radius:1];
+//        dot.backgroundColor = color;
+//        [view addSubview:dot];
+//        [dot release];
+//        [dot animate];
+//    }
 }
 
 - (void)shake
@@ -119,8 +128,8 @@
     shakeAnimation.delegate = self;
     shakeAnimation.targetView = (NSView *)[NSApp keyWindow];
     NSRect frame = shakeAnimation.fromFrame;
-    frame.origin.x += [NSNumber randomBetween:1 and:2]*5*[NSNumber randomSign];
-    frame.origin.y += [NSNumber randomBetween:1 and:2]*5;
+    frame.origin.x += [NSNumber randomBetween:5 and:10] * [NSNumber randomSign];
+	frame.origin.y += [NSNumber randomBetween:5 and:10] * [NSNumber randomSign];
     shakeAnimation.toFrame = frame;
     
     CDPViewAnimation *reverseAnimation = [[CDPViewAnimation alloc] initWithDuration:duration animationCurve:NSAnimationEaseInOut];

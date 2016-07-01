@@ -49,28 +49,28 @@
         [shakeItem release];
         
         // effect
-        NSMenuItem *effectItem = [[NSMenuItem alloc] initWithTitle:@"Typing Effect" action:nil keyEquivalent:@""];
-        [mainMenu addItem:effectItem];
-        menuItem.effectItem = effectItem;
-        [effectItem release];
-        
-        NSMenu *effectMenu = [[NSMenu alloc] initWithTitle:@""];
-        effectMenu.autoenablesItems = NO;
-        effectItem.submenu = effectMenu;
-        [effectMenu release];
-        
-        NSMenuItem *effectWhiteItem = [[NSMenuItem alloc] initWithTitle:@"White" action:@selector(effectWhiteItemClick:) keyEquivalent:@""];
-        effectWhiteItem.target = menuItem;
-        [effectMenu addItem:effectWhiteItem];
-        menuItem.effectWhiteItem = effectWhiteItem;
-        [effectWhiteItem release];
-        
-        NSMenuItem *effectOrangeItem = [[NSMenuItem alloc] initWithTitle:@"Orange" action:@selector(effectOrangeItemClick:) keyEquivalent:@""];
-        effectOrangeItem.target = menuItem;
-        [effectMenu addItem:effectOrangeItem];
-        menuItem.effectOrangeItem = effectOrangeItem;
-        [effectOrangeItem release];
-        
+//        NSMenuItem *effectItem = [[NSMenuItem alloc] initWithTitle:@"Typing Effect" action:nil keyEquivalent:@""];
+//        [mainMenu addItem:effectItem];
+//        menuItem.effectItem = effectItem;
+//        [effectItem release];
+//        
+//        NSMenu *effectMenu = [[NSMenu alloc] initWithTitle:@""];
+//        effectMenu.autoenablesItems = NO;
+//        effectItem.submenu = effectMenu;
+//        [effectMenu release];
+//        
+//        NSMenuItem *effectWhiteItem = [[NSMenuItem alloc] initWithTitle:@"White" action:@selector(effectWhiteItemClick:) keyEquivalent:@""];
+//        effectWhiteItem.target = menuItem;
+//        [effectMenu addItem:effectWhiteItem];
+//        menuItem.effectWhiteItem = effectWhiteItem;
+//        [effectWhiteItem release];
+//        
+//        NSMenuItem *effectOrangeItem = [[NSMenuItem alloc] initWithTitle:@"Orange" action:@selector(effectOrangeItemClick:) keyEquivalent:@""];
+//        effectOrangeItem.target = menuItem;
+//        [effectMenu addItem:effectOrangeItem];
+//        menuItem.effectOrangeItem = effectOrangeItem;
+//        [effectOrangeItem release];
+
         [menuItem updateTitles];
     }
     return [menuItem autorelease];
