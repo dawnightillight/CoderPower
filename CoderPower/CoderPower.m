@@ -103,17 +103,9 @@
 
 - (void)hanabiAt:(NSPoint)point view:(NSTextView *)view
 {
-	NSRect rect = CGRectMake(point.x - 10, point.y - 40, 20, 40);
-	CDPBubbleView *bubbleView = [[[CDPBubbleView alloc] initWithFrame:view.bounds] autorelease];
+	NSRect rect = CGRectMake(point.x - 20, point.y - 100, 40, 100);
+	CDPBubbleView *bubbleView = [[CDPBubbleView alloc] initWithFrame:rect];
 	[view addSubview:bubbleView];
-//    NSColor *color = [CDPUserInfoManager effectType] == CDPUserInfoEffectTypeWhite ? [NSColor whiteColor] : [NSColor orangeColor];
-//    for (int i = 0; i < 10; i++) {
-//        CDPDot *dot = [[CDPDot alloc] initWithCenter:point radius:1];
-//        dot.backgroundColor = color;
-//        [view addSubview:dot];
-//        [dot release];
-//        [dot animate];
-//    }
 }
 
 - (void)shake
