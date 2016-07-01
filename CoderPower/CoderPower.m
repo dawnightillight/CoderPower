@@ -95,7 +95,7 @@
 			return;
 
         NSRect rect = array[0];
-        CGPoint actionPosition = NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y);
+        CGPoint actionPosition = NSMakePoint(rect.origin.x, rect.origin.y);
         
         [self hanabiAt:actionPosition view:textView];
     }
