@@ -9,9 +9,7 @@
 #import "CDPBubbleView.h"
 
 #import "CVDisplayLinkMgr.h"
-
-//#import <QuartzCore/CAEmitterLayer.h>
-//#import <QuartzCore/CAEmitterCell.h>
+#import "CDPBubleAnimateDelegate.h"
 
 @interface CDPDotView : NSView
 @property (nonatomic, retain) NSColor *color;
@@ -28,7 +26,6 @@
 
 -(instancetype) initWithFrame:(NSRect) frameRect dotColor:(NSColor *)dotColor {
 	if ((self = [super initWithFrame:frameRect]) != nil) {
-//		self.translatesAutoresizingMaskIntoConstraints = YES;
 		self.color = dotColor;
 		self.vx = 10;
 		self.vy = 10;
@@ -50,36 +47,11 @@
 
 @end
 
-@interface CDPBubbleView()
+@interface CDPBubbleView() <CDPBubleAnimateDelegate>
 @property (nonatomic, retain) NSMutableArray<CDPDotView *> *dots;
 @end
 
 @implementation CDPBubbleView
-
-static CVReturn renderCallback(CVDisplayLinkRef displayLink,
-							   const CVTimeStamp *inNow,
-							   const CVTimeStamp *inOutputTime,
-							   CVOptionFlags flagsIn,
-							   CVOptionFlags *flagsOut,
-							   void *displayLinkContext) {
-
-//		CDPBubbleView *bubleView = displayLinkContext;
-//		[bubleView.operationQueue addOperationWithBlock:^{
-//			NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-//				long long deltaTime = inOutputTime->videoTime - inNow->videoTime;
-//				for (CDPDotView *dot in bubleView.dots) {
-//					CGFloat newX = dot.frame.origin.x + deltaTime * 0.000000000001;
-//					CGFloat newY = dot.frame.origin.y + deltaTime * 0.000000000001;
-//				}
-////				dot.frame = CGRectMake(newX, newY, dot.frame.size.width, dot.frame.size.height);
-//			}];
-//			[[NSOperationQueue mainQueue] addOperations:@[operation] waitUntilFinished:YES];
-//		}];
-////	}
-
-	long long deltaTime = inOutputTime->videoTime - inNow->videoTime;
-	return kCVReturnSuccess;
-}
 
 -(instancetype) initWithFrame:(NSRect)frameRect {
 	if ((self = [super initWithFrame:frameRect]) != nil) {
@@ -90,23 +62,28 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 			[self.dots addObject:dot];
 		}
 
-//		CGDirectDisplayID   displayID = CGMainDisplayID();
-//		CVReturn            error = kCVReturnSuccess;
-//		error = CVDisplayLinkCreateWithCGDisplay(displayID, &_displayLink);
-//		if (!error) {
-//			CVDisplayLinkSetOutputCallback(self.displayLink, renderCallback, self);
-//			CVDisplayLinkStart(self.displayLink);
-//		}
-//		CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
-//		CVDisplayLinkSetOutputCallback(mgr.displayLink, renderCallback, self);
+		CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
+		[mgr addBubleAnimtateDelegate:self];
 
 		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 			[self removeFromSuperview];
+			CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
+			[mgr deleteBubleAnimtateDelegate:self];
 			[self release];
 		});
-
 	}
 	return self;
+}
+
+-(void) animate:(long long) deltaTime {
+//	dispatch_async(dispatch_get_main_queue(), ^{
+		for (CDPDotView *dot in self.dots) {
+			CGFloat newX = dot.frame.origin.x + deltaTime * 0.0000001;
+			CGFloat newY = dot.frame.origin.y + deltaTime * 0.0000001;
+			CGRect newRect = CGRectMake(newX, newY, dot.frame.size.width, dot.frame.size.height);
+			dot.frame = newRect;
+		}
+//	});
 }
 
 @end

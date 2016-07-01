@@ -8,13 +8,36 @@
 
 #import "CVDisplayLinkMgr.h"
 
+@interface CVDisplayLinkMgr()
+
+@property (nonatomic, assign) CVDisplayLinkRef displayLink;
+@property (atomic, retain) NSMutableArray<id<CDPBubleAnimateDelegate>> *bubleDelegate;
+
+@end
+
 @implementation CVDisplayLinkMgr
+
+static CVReturn renderCallback(CVDisplayLinkRef displayLink,
+							   const CVTimeStamp *inNow,
+							   const CVTimeStamp *inOutputTime,
+							   CVOptionFlags flagsIn,
+							   CVOptionFlags *flagsOut,
+							   void *displayLinkContext) {
+	static long long deltaTime = 0;
+	deltaTime = inOutputTime->videoTime - inNow->videoTime;
+	CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
+	[mgr updateAnimate:deltaTime];
+	return kCVReturnSuccess;
+}
+
 
 +(instancetype) getInstance {
 	static CVDisplayLinkMgr *_instance;
 	static dispatch_once_t _onceFlag;
 	dispatch_once(&_onceFlag, ^{
 		_instance = [[CVDisplayLinkMgr alloc] init];
+		CVDisplayLinkSetOutputCallback(_instance.displayLink, renderCallback, NULL);
+		CVDisplayLinkStart(_instance.displayLink);
 	});
 	return _instance;
 }
@@ -23,9 +46,33 @@
 	if ((self = [super init]) != nil) {
 		CGDirectDisplayID   displayID = CGMainDisplayID();
 		CVDisplayLinkCreateWithCGDisplay(displayID, &_displayLink);
-		self.views = [[NSMutableArray<NSView *> alloc] init];
+		self.bubleDelegate = [[NSMutableArray<id<CDPBubleAnimateDelegate>> alloc] init];
 	}
 	return self;
+}
+
+-(void) addBubleAnimtateDelegate:(id<CDPBubleAnimateDelegate>) delegate {
+	@synchronized (self.bubleDelegate) {
+		[self.bubleDelegate addObject:delegate];
+	}
+}
+
+-(void) deleteBubleAnimtateDelegate:(id<CDPBubleAnimateDelegate>) delegate {
+	@synchronized (self.bubleDelegate) {
+		[self.bubleDelegate removeObject:delegate];
+	}
+}
+
+-(void) updateAnimate:(long long) deltaTime {
+	NSArray<id<CDPBubleAnimateDelegate>> *aimateCopy = nil;
+	@synchronized (self.bubleDelegate) {
+		aimateCopy = [self.bubleDelegate copy];
+	}
+	dispatch_async(dispatch_get_main_queue(), ^{
+		for (id<CDPBubleAnimateDelegate> bubleAnimate in aimateCopy) {
+			[bubleAnimate animate:deltaTime];
+		}
+	});
 }
 
 @end

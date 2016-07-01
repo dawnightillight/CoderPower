@@ -7,16 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
 #import <CoreVideo/CoreVideo.h>
 
+#import "CDPBubleAnimateDelegate.h"
+
 @interface CVDisplayLinkMgr : NSObject
-@property (nonatomic, assign) CVDisplayLinkRef displayLink;
-@property (atomic, retain) NSMutableArray<NSView *> *views;
 
 +(instancetype) getInstance;
 
 -(instancetype) init;
 
+-(void) addBubleAnimtateDelegate:(id<CDPBubleAnimateDelegate>) delegate;
+-(void) deleteBubleAnimtateDelegate:(id<CDPBubleAnimateDelegate>) delegate;
 
 @end

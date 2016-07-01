@@ -33,6 +33,7 @@
 		6808EF451D25F18000B446C7 /* CDPBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPBubbleView.m; sourceTree = "<group>"; };
 		689AE2751D267CB800100658 /* CVDisplayLinkMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVDisplayLinkMgr.h; sourceTree = "<group>"; };
 		689AE2761D267CB800100658 /* CVDisplayLinkMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVDisplayLinkMgr.m; sourceTree = "<group>"; };
+		689AE2781D26825200100658 /* CDPBubleAnimateDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CDPBubleAnimateDelegate.h; sourceTree = "<group>"; };
 		DD2150D91C0C01A30029A779 /* CoderPower.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoderPower.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD2150DC1C0C01A30029A779 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		DD2150DE1C0C01A30029A779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -101,6 +102,7 @@
 				689AE2761D267CB800100658 /* CVDisplayLinkMgr.m */,
 				6808EF441D25F18000B446C7 /* CDPBubbleView.h */,
 				6808EF451D25F18000B446C7 /* CDPBubbleView.m */,
+				689AE2781D26825200100658 /* CDPBubleAnimateDelegate.h */,
 				DD2151041C0C32810029A779 /* Defination.h */,
 				DD2150EA1C0C01A30029A779 /* Info.plist */,
 				DD2150E71C0C01A30029A779 /* NSObject_Extension.h */,
