@@ -11,7 +11,7 @@
 @interface CVDisplayLinkMgr()
 
 @property (nonatomic, assign) CVDisplayLinkRef displayLink;
-@property (nonatomic, retain) NSMutableArray<id<CDPBubleAnimateDelegate>> *bubleDelegate;
+@property (atomic, retain) NSMutableArray<id<CDPBubleAnimateDelegate>> *bubleDelegate;
 
 @end
 
@@ -45,7 +45,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 	if ((self = [super init]) != nil) {
 		CGDirectDisplayID   displayID = CGMainDisplayID();
 		CVDisplayLinkCreateWithCGDisplay(displayID, &_displayLink);
-		self.bubleDelegate = [[NSMutableArray<id<CDPBubleAnimateDelegate>> alloc] init];
+		self.bubleDelegate = [[[NSMutableArray<id<CDPBubleAnimateDelegate>> alloc] init] autorelease];
 	}
 	return self;
 }
@@ -63,15 +63,23 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 }
 
 -(void) updateAnimate:(long long) deltaTime {
-	NSArray<id<CDPBubleAnimateDelegate>> *aimateCopy = nil;
+	NSArray<id<CDPBubleAnimateDelegate>> *animateCopy = nil;
 	@synchronized (self.bubleDelegate) {
-		aimateCopy = [self.bubleDelegate copy];
+		animateCopy = [self.bubleDelegate copy];
 	}
 	dispatch_async(dispatch_get_main_queue(), ^{
-		for (id<CDPBubleAnimateDelegate> bubleAnimate in aimateCopy) {
+		for (id<CDPBubleAnimateDelegate> bubleAnimate in animateCopy) {
 			[bubleAnimate animate:deltaTime];
 		}
 	});
+	[animateCopy release];
+}
+
+-(void) dealloc {
+	[self.bubleDelegate removeAllObjects];
+	self.bubleDelegate = nil;
+	CVDisplayLinkRelease(self.displayLink);
+	[super dealloc];
 }
 
 @end

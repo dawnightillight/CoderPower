@@ -106,6 +106,7 @@
 	NSRect rect = CGRectMake(point.x - 20, point.y - 100, 40, 100);
 	CDPBubbleView *bubbleView = [[CDPBubbleView alloc] initWithFrame:rect];
 	[view addSubview:bubbleView];
+	[bubbleView release];
 }
 
 - (void)shake

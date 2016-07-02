@@ -9,9 +9,9 @@
 #import "CDPUserInfoManager.h"
 
 #define kKeySwitch @"kKeySwitch"
-#define kKeyShake @"kKeyShake"
-#define kKeyBreathLight @"kKeyBreathLight"
-#define kKeyEffect @"kKeyEffect"
+//#define kKeyShake @"kKeyShake"
+//#define kKeyBreathLight @"kKeyBreathLight"
+//#define kKeyEffect @"kKeyEffect"
 
 @implementation CDPUserInfoManager
 
@@ -29,32 +29,32 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (BOOL)isShakeOn
-{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyShake]) {
-        [self setIsShakeOn:YES];
-    }
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyShake];
-}
+//+ (BOOL)isShakeOn
+//{
+//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyShake]) {
+//        [self setIsShakeOn:YES];
+//    }
+//    return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyShake];
+//}
+//
+//+ (void)setIsShakeOn:(BOOL)isShakeOn
+//{
+//    [[NSUserDefaults standardUserDefaults] setBool:isShakeOn forKey:kKeyShake];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 
-+ (void)setIsShakeOn:(BOOL)isShakeOn
-{
-    [[NSUserDefaults standardUserDefaults] setBool:isShakeOn forKey:kKeyShake];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (CDPUserInfoEffectType)effectType
-{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyEffect]) {
-        [self setEffectType:CDPUserInfoEffectTypeWhite];
-    }
-    return [[NSUserDefaults standardUserDefaults] integerForKey:kKeyEffect];
-}
-
-+ (void)setEffectType:(CDPUserInfoEffectType)effectType
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:effectType forKey:kKeyEffect];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
+//+ (CDPUserInfoEffectType)effectType
+//{
+//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyEffect]) {
+//        [self setEffectType:CDPUserInfoEffectTypeWhite];
+//    }
+//    return [[NSUserDefaults standardUserDefaults] integerForKey:kKeyEffect];
+//}
+//
+//+ (void)setEffectType:(CDPUserInfoEffectType)effectType
+//{
+//    [[NSUserDefaults standardUserDefaults] setInteger:effectType forKey:kKeyEffect];
+//    [[NSUserDefaults standardUserDefaults] synchronize];
+//}
 
 @end

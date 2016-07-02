@@ -11,7 +11,7 @@
 #import "CVDisplayLinkMgr.h"
 #import "CDPBubleAnimateDelegate.h"
 
-@interface CDPDotView : NSView
+@interface CDPDot : CALayer
 @property (nonatomic, retain) NSColor *color;
 @property (nonatomic, assign) CGFloat vx;
 @property (nonatomic, assign) CGFloat vy;
@@ -22,10 +22,13 @@
 
 @end
 
-@implementation CDPDotView
+@implementation CDPDot
 
 -(instancetype) initWithFrame:(NSRect) frameRect dotColor:(NSColor *)dotColor {
-	if ((self = [super initWithFrame:frameRect]) != nil) {
+	if ((self = [super init]) != nil) {
+		self.frame = frameRect;
+		self.masksToBounds = NO;
+		[self setNeedsDisplay];
 		self.color = dotColor;
 		self.vx = 10;
 		self.vy = 10;
@@ -35,30 +38,34 @@
 	return self;
 }
 
--(void) drawRect:(NSRect)dirtyRect {
-	[super drawRect:dirtyRect];
-	NSGraphicsContext* aContext = [NSGraphicsContext currentContext];
-	CGContextRef cgContext = [aContext CGContext];
-	CGContextAddEllipseInRect(cgContext, self.bounds);
-	CGContextSetFillColorWithColor(cgContext, self.color.CGColor);
-	CGContextFillPath(cgContext);
-	[aContext flushGraphics];
+-(void) drawInContext:(CGContextRef)ctx {
+	CGContextAddEllipseInRect(ctx, self.bounds);
+	CGContextSetFillColorWithColor(ctx, self.color.CGColor);
+	CGContextFillPath(ctx);
+	CGContextFlush(ctx);
+	[super drawInContext:ctx];
+}
+
+-(void) dealloc {
+	self.color = nil;
+	[super dealloc];
 }
 
 @end
 
 @interface CDPBubbleView() <CDPBubleAnimateDelegate>
-@property (nonatomic, retain) NSMutableArray<CDPDotView *> *dots;
+@property (nonatomic, retain) NSMutableArray<CDPDot *> *dots;
 @end
 
 @implementation CDPBubbleView
 
 -(instancetype) initWithFrame:(NSRect)frameRect {
 	if ((self = [super initWithFrame:frameRect]) != nil) {
-		self.dots = [[NSMutableArray<CDPDotView *> alloc] init];
+		self.wantsLayer = YES;
+		self.dots = [[NSMutableArray<CDPDot *> alloc] init];
 		for (int i = 0; i < 10; ++i) {
-			CDPDotView *dot = [[[CDPDotView alloc] initWithFrame:CGRectMake(frameRect.size.width / 2 - 5, 0, 10, 10) dotColor:[NSColor greenColor]] autorelease];
-			[self addSubview:dot];
+			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(frameRect.size.width / 2 - 5, 0, 10, 10) dotColor:[NSColor greenColor]] autorelease];
+			[self.layer addSublayer:dot];
 			[self.dots addObject:dot];
 		}
 
@@ -69,19 +76,23 @@
 			[self removeFromSuperview];
 			CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
 			[mgr deleteBubleAnimtateDelegate:self];
-			[self release];
 		});
 	}
 	return self;
 }
 
 -(void) animate:(long long) deltaTime {
-	for (CDPDotView *dot in self.dots) {
-		CGFloat newX = dot.frame.origin.x + deltaTime * 0.0000001;
-		CGFloat newY = dot.frame.origin.y + deltaTime * 0.0000001;
-		CGRect newRect = CGRectMake(newX, newY, dot.frame.size.width, dot.frame.size.height);
-		dot.frame = newRect;
+	for (CDPDot *dot in self.dots) {
+		CGFloat newX = dot.position.x + deltaTime * 0.001;
+		CGFloat newY = dot.position.y + deltaTime * 0.001;
+		dot.position = CGPointMake(newX, newY);
 	}
+}
+
+-(void) dealloc {
+	[self.dots removeAllObjects];
+	self.dots = nil;
+	[super dealloc];
 }
 
 @end

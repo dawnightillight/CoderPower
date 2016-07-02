@@ -13,10 +13,10 @@
 @interface CDPMainMenuItem ()
 
 @property(nonatomic, retain) NSMenuItem *switchItem;
-@property(nonatomic, retain) NSMenuItem *shakeItem;
-@property(nonatomic, retain) NSMenuItem *effectItem;
-@property(nonatomic, retain) NSMenuItem *effectWhiteItem;
-@property(nonatomic, retain) NSMenuItem *effectOrangeItem;
+//@property(nonatomic, retain) NSMenuItem *shakeItem;
+//@property(nonatomic, retain) NSMenuItem *effectItem;
+//@property(nonatomic, retain) NSMenuItem *effectWhiteItem;
+//@property(nonatomic, retain) NSMenuItem *effectOrangeItem;
 
 @end
 
@@ -27,27 +27,24 @@
     CDPMainMenuItem *menuItem = [[CDPMainMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"CoderPower(%@)", CDPAppVersion] action:nil keyEquivalent:@""];
     
     if (menuItem) {
-        NSMenu *mainMenu = [[NSMenu alloc] initWithTitle:@"CoderPower"];
+        NSMenu *mainMenu = [[[NSMenu alloc] initWithTitle:@"CoderPower"] autorelease];
         mainMenu.autoenablesItems = NO;
         menuItem.submenu = mainMenu;
-        [mainMenu release];
         
         // main
-        NSMenuItem *switchItem = [[NSMenuItem alloc] initWithTitle:@"Disable CoderPower" action:@selector(switchItemClick:) keyEquivalent:@""];
+        NSMenuItem *switchItem = [[[NSMenuItem alloc] initWithTitle:@"Disable CoderPower" action:@selector(switchItemClick:) keyEquivalent:@""] autorelease];
         switchItem.target = menuItem;
         [mainMenu addItem:switchItem];
         menuItem.switchItem = switchItem;
-        [switchItem release];
         
-        [mainMenu addItem:[NSMenuItem separatorItem]];
-        
+//        [mainMenu addItem:[NSMenuItem separatorItem]];
+		
         // shake
-        NSMenuItem *shakeItem = [[NSMenuItem alloc] initWithTitle:@"Disable Shake" action:@selector(shakeItemClick:) keyEquivalent:@""];
-        shakeItem.target = menuItem;
-        [mainMenu addItem:shakeItem];
-        menuItem.shakeItem = shakeItem;
-        [shakeItem release];
-        
+//        NSMenuItem *shakeItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Shake" action:@selector(shakeItemClick:) keyEquivalent:@""] autorelease];
+//        shakeItem.target = menuItem;
+//        [mainMenu addItem:shakeItem];
+//        menuItem.shakeItem = shakeItem;
+		
         // effect
 //        NSMenuItem *effectItem = [[NSMenuItem alloc] initWithTitle:@"Typing Effect" action:nil keyEquivalent:@""];
 //        [mainMenu addItem:effectItem];
@@ -79,10 +76,10 @@
 - (void)dealloc
 {
     self.switchItem = nil;
-    self.shakeItem = nil;
-    self.effectItem = nil;
-    self.effectWhiteItem = nil;
-    self.effectOrangeItem = nil;
+//    self.shakeItem = nil;
+//    self.effectItem = nil;
+//    self.effectWhiteItem = nil;
+//    self.effectOrangeItem = nil;
     [super dealloc];
 }
 
@@ -90,25 +87,25 @@
 
 - (void)updateTitles
 {
-    _shakeItem.enabled = _effectItem.enabled = _effectWhiteItem.enabled = _effectOrangeItem.enabled = CDPUserInfoManager.isOn;
+//    _shakeItem.enabled = _effectItem.enabled = _effectWhiteItem.enabled = _effectOrangeItem.enabled = CDPUserInfoManager.isOn;
     if (CDPUserInfoManager.isOn) {
         _switchItem.title = @"Disable CoderPower";
     } else {
         _switchItem.title = @"Enable CoderPower";
     }
-    if (CDPUserInfoManager.isShakeOn) {
-        _shakeItem.title = @"Disable Shake";
-    } else {
-        _shakeItem.title = @"Enable Shake";
-    }
-    
-    if (CDPUserInfoManager.effectType == CDPUserInfoEffectTypeWhite) {
-        _effectWhiteItem.state = NSOnState;
-        _effectOrangeItem.state = NSOffState;
-    } else {
-        _effectWhiteItem.state = NSOffState;
-        _effectOrangeItem.state = NSOnState;
-    }
+//    if (CDPUserInfoManager.isShakeOn) {
+//        _shakeItem.title = @"Disable Shake";
+//    } else {
+//        _shakeItem.title = @"Enable Shake";
+//    }
+	
+//    if (CDPUserInfoManager.effectType == CDPUserInfoEffectTypeWhite) {
+//        _effectWhiteItem.state = NSOnState;
+//        _effectOrangeItem.state = NSOffState;
+//    } else {
+//        _effectWhiteItem.state = NSOffState;
+//        _effectOrangeItem.state = NSOnState;
+//    }
 }
 
 - (void)switchItemClick:(id)sender
@@ -117,24 +114,24 @@
     [self updateTitles];
 }
 
-- (void)shakeItemClick:(id)sender
-{
-    CDPUserInfoManager.isShakeOn = !CDPUserInfoManager.isShakeOn;
-    [self updateTitles];
-
-}
-
-- (void)effectWhiteItemClick:(id)sender
-{
-    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeWhite;
-    [self updateTitles];
-}
-
-- (void)effectOrangeItemClick:(id)sender
-{
-    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeOrange;
-    [self updateTitles];
-
-}
+//- (void)shakeItemClick:(id)sender
+//{
+//    CDPUserInfoManager.isShakeOn = !CDPUserInfoManager.isShakeOn;
+//    [self updateTitles];
+//
+//}
+//
+//- (void)effectWhiteItemClick:(id)sender
+//{
+//    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeWhite;
+//    [self updateTitles];
+//}
+//
+//- (void)effectOrangeItemClick:(id)sender
+//{
+//    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeOrange;
+//    [self updateTitles];
+//
+//}
 
 @end
