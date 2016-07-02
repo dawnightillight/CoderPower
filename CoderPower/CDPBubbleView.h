@@ -12,4 +12,6 @@
 
 -(instancetype) initWithFrame:(NSRect)frameRect;
 
+-(void) addBubbleAtPoint:(CGPoint) point;
+
 @end

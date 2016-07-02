@@ -8,11 +8,14 @@
 
 #import "CDPBubbleView.h"
 
+#import <Quartz/Quartz.h>
+
 #import "CVDisplayLinkMgr.h"
 #import "CDPBubleAnimateDelegate.h"
 
 @interface CDPDot : CALayer
 @property (nonatomic, retain) NSColor *color;
+@property (nonatomic, retain) NSDate *generateDate;
 @property (nonatomic, assign) CGFloat vx;
 @property (nonatomic, assign) CGFloat vy;
 @property (nonatomic, assign) CGFloat ax;
@@ -28,6 +31,7 @@
 	if ((self = [super init]) != nil) {
 		self.frame = frameRect;
 		self.masksToBounds = NO;
+		self.generateDate = [NSDate date];
 		[self setNeedsDisplay];
 		self.color = dotColor;
 		self.vx = 10;
@@ -63,38 +67,55 @@
 	if ((self = [super initWithFrame:frameRect]) != nil) {
 		self.wantsLayer = YES;
 		self.dots = [[NSMutableArray<CDPDot *> alloc] init];
-		for (int i = 0; i < 10; ++i) {
-			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(frameRect.size.width / 2 - 5, 0, 10, 10) dotColor:[NSColor greenColor]] autorelease];
-			[self.layer addSublayer:dot];
-			[self.dots addObject:dot];
-		}
-
+		
 		CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
 		[mgr addBubleAnimtateDelegate:self];
-
-		[NSAnimationContext runAnimationGroup:^(NSAnimationContext * _Nonnull context) {
-			context.duration = 0.5;
-			self.animator.alphaValue = 0;
-		} completionHandler:^{
-			[self removeFromSuperview];
-			CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
-			[mgr deleteBubleAnimtateDelegate:self];
-		}];
 	}
 	return self;
 }
 
 -(void) animate:(long long) deltaTime {
-	for (CDPDot *dot in self.dots) {
+	NSArray<CDPDot *> *dotsCopy = nil;
+	@synchronized (self.dots) {
+		dotsCopy = [self.dots copy];
+	}
+	for (CDPDot *dot in dotsCopy) {
+		NSDate *now = [NSDate date];
+		NSTimeInterval lifeTime = [now timeIntervalSinceDate:dot.generateDate];
+		static const NSTimeInterval animationDur = 1;
+		if (lifeTime > animationDur) {
+			[dot removeFromSuperlayer];
+			@synchronized (self.dots) {
+				[self.dots removeObject:dot];
+			}
+		}
+		[CATransaction begin];
+		[CATransaction setDisableActions: YES];
 		CGFloat newX = dot.position.x + deltaTime * 0.001;
 		CGFloat newY = dot.position.y + deltaTime * 0.001;
 		dot.position = CGPointMake(newX, newY);
+		dot.opacity = 1.0 - lifeTime * 1.0 / animationDur;
+		[CATransaction commit];
+	}
+	[dotsCopy release];
+}
+
+-(void) addBubbleAtPoint:(CGPoint) point {
+	@synchronized (self.dots) {
+		for (int i = 0; i < 10; ++i) {
+			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, 10, 10) dotColor:[NSColor greenColor]] autorelease];
+			dot.position = CGPointMake(point.x, self.frame.size.height - point.y);
+			[self.layer addSublayer:dot];
+			[self.dots addObject:dot];
+		}
 	}
 }
 
 -(void) dealloc {
-	[self.dots removeAllObjects];
-	self.dots = nil;
+	@synchronized (self.dots) {
+		[self.dots removeAllObjects];
+		self.dots = nil;
+	}
 	[super dealloc];
 }
 

@@ -22,6 +22,7 @@
 }
 
 @property (nonatomic, retain, readwrite) NSBundle *bundle;
+@property (nonatomic, retain) NSMutableDictionary<NSString *, CDPBubbleView *> *viewMaps;
 
 @end
 
@@ -35,12 +36,11 @@
 - (id)initWithBundle:(NSBundle *)plugin
 {
     if (self = [super init]) {
-        // reference to plugin's bundle, for resource access
         self.bundle = plugin;
+		self.viewMaps = [[[NSMutableDictionary<NSString *, CDPBubbleView *> alloc] init] autorelease];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didApplicationFinishLaunchingNotification:) name:NSApplicationDidFinishLaunchingNotification object:nil];
         
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:nil];
-
     }
     return self;
 }
@@ -86,7 +86,7 @@
 
 - (void)bubble:(NSTextView *)textView
 {
-    if (textView != nil && [CDPUserInfoManager isOn]) {
+    if (textView != nil) {
         NSInteger cursorPoint = [[[textView selectedRanges] objectAtIndex:0] rangeValue].location;
         
         NSUInteger count = 1;
@@ -101,12 +101,19 @@
     }
 }
 
-- (void)hanabiAt:(NSPoint)point view:(NSTextView *)view
-{
-	NSRect rect = CGRectMake(point.x - 20, point.y - 100, 40, 100);
-	CDPBubbleView *bubbleView = [[CDPBubbleView alloc] initWithFrame:rect];
-	[view addSubview:bubbleView];
-	[bubbleView release];
+- (void)hanabiAt:(NSPoint)point view:(NSTextView *)view {
+	if (!view.identifier)
+		view.identifier = [[NSUUID UUID] UUIDString];
+
+	CDPBubbleView *bubbleView = [self.viewMaps objectForKey:view.identifier];
+	if (!bubbleView) {
+		bubbleView = [[CDPBubbleView alloc] initWithFrame:view.bounds];
+		[view addSubview:bubbleView];
+		[bubbleView release];
+		[self.viewMaps setObject:bubbleView forKey:view.identifier];
+	}
+
+	[bubbleView addBubbleAtPoint:point];
 }
 
 - (void)shake
@@ -124,7 +131,7 @@
     frame.origin.x += [NSNumber randomBetween:5 and:10] * [NSNumber randomSign];
 	frame.origin.y += [NSNumber randomBetween:5 and:10] * [NSNumber randomSign];
     shakeAnimation.toFrame = frame;
-    
+
     CDPViewAnimation *reverseAnimation = [[CDPViewAnimation alloc] initWithDuration:duration animationCurve:NSAnimationEaseInOut];
     reverseAnimation.delegate = self;
     reverseAnimation.tag = kAnimationTagShake;
