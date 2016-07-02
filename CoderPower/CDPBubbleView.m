@@ -10,6 +10,7 @@
 
 #import <Quartz/Quartz.h>
 
+#import "NSNumber+Append.h"
 #import "CVDisplayLinkMgr.h"
 #import "CDPBubleAnimateDelegate.h"
 
@@ -79,10 +80,11 @@
 	@synchronized (self.dots) {
 		dotsCopy = [self.dots copy];
 	}
+	deltaTime = deltaTime * 0.001;
 	for (CDPDot *dot in dotsCopy) {
 		NSDate *now = [NSDate date];
 		NSTimeInterval lifeTime = [now timeIntervalSinceDate:dot.generateDate];
-		static const NSTimeInterval animationDur = 1;
+		static const NSTimeInterval animationDur = 0.5;
 		if (lifeTime > animationDur) {
 			[dot removeFromSuperlayer];
 			@synchronized (self.dots) {
@@ -91,8 +93,12 @@
 		}
 		[CATransaction begin];
 		[CATransaction setDisableActions: YES];
-		CGFloat newX = dot.position.x + deltaTime * 0.001;
-		CGFloat newY = dot.position.y + deltaTime * 0.001;
+		dot.vx += deltaTime * dot.ax;
+		dot.vy += deltaTime * dot.ay;
+		CGFloat sX = dot.vx * deltaTime + 1.0f / 2 * dot.ax * deltaTime * deltaTime;
+		CGFloat sy = dot.vy * deltaTime + 1.0f / 2 * dot.ay * deltaTime * deltaTime;
+		CGFloat newX = dot.position.x + sX;
+		CGFloat newY = dot.position.y + sy;
 		dot.position = CGPointMake(newX, newY);
 		dot.opacity = 1.0 - lifeTime * 1.0 / animationDur;
 		[CATransaction commit];
@@ -100,11 +106,39 @@
 	[dotsCopy release];
 }
 
+static NSColor *generateRandomColor() {
+	static NSMutableArray<NSColor *> *_color = nil;
+	static dispatch_once_t _onceFlag;
+	dispatch_once(&_onceFlag, ^{
+		_color = [[NSMutableArray<NSColor *> alloc] init];
+		[_color addObject:[NSColor colorWithRed:255 / 255.f green:255 / 255.f blue:255 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:65 / 255.f green:204 / 255.f blue:69 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:255 / 255.f green:44 / 255.f blue:56 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:120 / 255.f green:109 / 255.f blue:255 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:211 / 255.f green:24 / 255.f blue:149 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:228 / 255.f green:124 / 255.f blue:72 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:65 / 255.f green:100 / 255.f blue:255 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:63 / 255.f green:88 / 255.f blue:116 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:35 / 255.f green:255 / 255.f blue:131 / 255.f alpha:1]];
+		[_color addObject:[NSColor colorWithRed:0 / 255.f green:160 / 255.f blue:255 / 255.f alpha:1]];
+	});
+	NSInteger index = [NSNumber randomBetween:0 and:_color.count];
+	if (index == _color.count)
+		--index;
+	if (index < 0)
+		++index;
+	return [_color objectAtIndex:index];
+}
+
 -(void) addBubbleAtPoint:(CGPoint) point {
 	@synchronized (self.dots) {
 		for (int i = 0; i < 10; ++i) {
-			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, 10, 10) dotColor:[NSColor greenColor]] autorelease];
+			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, 10, 10) dotColor:generateRandomColor()] autorelease];
 			dot.position = CGPointMake(point.x, self.frame.size.height - point.y);
+			dot.vx = [NSNumber randomBetween:1 and:5] * 0.1 * [NSNumber randomSign];
+			dot.ax = [NSNumber randomBetween:1 and:2] * 0.1 * [NSNumber randomSign];
+			dot.vy = [NSNumber randomBetween:0 and:10];
+			dot.ay = [NSNumber randomBetween:1 and:5] * 0.1 * -1;
 			[self.layer addSublayer:dot];
 			[self.dots addObject:dot];
 		}

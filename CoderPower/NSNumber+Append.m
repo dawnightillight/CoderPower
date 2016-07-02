@@ -10,9 +10,12 @@
 
 @implementation NSNumber (Append)
 
-// [begin, end]
+// [begin, end)
 + (NSInteger)randomBetween:(NSInteger)begin and:(NSInteger)end
 {
+	if (begin == end)
+		return begin;
+
     return (arc4random()%end+begin);
 }
 
