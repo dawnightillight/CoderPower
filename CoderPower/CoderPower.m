@@ -57,14 +57,10 @@
 - (void)didApplicationFinishLaunchingNotification:(NSNotification*)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSApplicationDidFinishLaunchingNotification object:nil];
-    
-    NSMenuItem *editItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
-    if (editItem) {
-        [editItem.submenu addItem:[NSMenuItem separatorItem]]; // 分割线
-        
-        CDPMainMenuItem *mainMenuItem = [CDPMainMenuItem item];
-        [editItem.submenu addItem:mainMenuItem];
-    }
+
+	NSMenu *mainMenu = [NSApp mainMenu];
+	CDPMainMenuItem *CDPItem = [CDPMainMenuItem item];
+	[mainMenu insertItem:CDPItem atIndex:7];
 }
 
 - (void)textDidChange:(NSNotification *)notification {
@@ -75,7 +71,19 @@
 	if (!obj || ![obj isKindOfClass:[NSTextView class]])
 		return;
 
+	//////////////////////////////////////////////////////////////
+	// 这段代码的本意是只在代码编辑的view上打字时才有特效
+	// 但是目前没有更好的办法判断view是不是代码编辑的view
+	// 通过观察发现在所有view中,代码编辑view的maxSize是
+	// (10000000.00, 10000000.00),所以暂时用这种方法来
+	// 判断
+	//////////////////////////////////////////////////////////////
 	NSTextView *textView = (NSTextView *)obj;
+	NSSize maxSize = textView.maxSize;
+	if (!NSEqualSizes(maxSize, NSMakeSize(10000000.00, 10000000.00)))
+		return;
+	//////////////////////////////////////////////////////////////
+
 	if ([CDPUserInfoManager isOn]) {
 		[self shake];
 		[self bubble:textView];

@@ -21,6 +21,7 @@
 @property (nonatomic, assign) CGFloat vy;
 @property (nonatomic, assign) CGFloat ax;
 @property (nonatomic, assign) CGFloat ay;
+@property (nonatomic, assign) NSTimeInterval lifeTime;
 
 -(instancetype) initWithFrame:(NSRect) frameRect dotColor:(NSColor *)dotColor;
 
@@ -39,6 +40,8 @@
 		self.vy = 10;
 		self.ax = 0;
 		self.ay = 0;
+		NSInteger lifeTime = [NSNumber randomBetween:3 and:7];
+		self.lifeTime = lifeTime / 10.f;
 	}
 	return self;
 }
@@ -84,7 +87,7 @@
 	for (CDPDot *dot in dotsCopy) {
 		NSDate *now = [NSDate date];
 		NSTimeInterval lifeTime = [now timeIntervalSinceDate:dot.generateDate];
-		static const NSTimeInterval animationDur = 0.5;
+		NSTimeInterval animationDur = dot.lifeTime;
 		if (lifeTime > animationDur) {
 			[dot removeFromSuperlayer];
 			@synchronized (self.dots) {
@@ -132,8 +135,11 @@ static NSColor *generateRandomColor() {
 
 -(void) addBubbleAtPoint:(CGPoint) point {
 	@synchronized (self.dots) {
-		for (int i = 0; i < 10; ++i) {
-			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, 10, 10) dotColor:generateRandomColor()] autorelease];
+		NSInteger bubleCount = [NSNumber randomBetween:3 and:11];
+		for (int i = 0; i < bubleCount; ++i) {
+			// 直径
+			NSInteger bubleDiameter = [NSNumber randomBetween:3 and:6];
+			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, bubleDiameter, bubleDiameter) dotColor:generateRandomColor()] autorelease];
 			dot.position = CGPointMake(point.x, self.frame.size.height - point.y);
 			dot.vx = [NSNumber randomBetween:1 and:5] * 0.1 * [NSNumber randomSign];
 			dot.ax = [NSNumber randomBetween:1 and:2] * 0.1 * [NSNumber randomSign];

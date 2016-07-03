@@ -78,6 +78,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 -(void) dealloc {
 	[self.bubleDelegate removeAllObjects];
 	self.bubleDelegate = nil;
+	CVDisplayLinkStop(self.displayLink);
 	CVDisplayLinkRelease(self.displayLink);
 	[super dealloc];
 }
