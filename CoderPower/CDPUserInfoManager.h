@@ -15,13 +15,7 @@
 
 @interface CDPUserInfoManager : NSObject
 
-+ (BOOL)isOn;
-+ (void)setIsOn:(BOOL)isOn;
-
-//+ (BOOL)isShakeOn;
-//+ (void)setIsShakeOn:(BOOL)isShakeOn;
-
-//+ (CDPUserInfoEffectType)effectType;
-//+ (void)setEffectType:(CDPUserInfoEffectType)effectType;
++ (BOOL)isShakeOn;
++ (void)setIsShakeOn:(BOOL)isOn;
 
 @end

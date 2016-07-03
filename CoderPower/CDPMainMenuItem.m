@@ -12,7 +12,8 @@
 
 @interface CDPMainMenuItem ()
 
-@property(nonatomic, retain) NSMenuItem *switchItem;
+@property(nonatomic, retain) NSMenuItem *shake;
+@property(nonatomic, retain) NSMenuItem *bubble;
 
 @end
 
@@ -20,17 +21,23 @@
 
 + (instancetype)item {
     CDPMainMenuItem *menuItem = [[CDPMainMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"CoderPower(%@)", CDPAppVersion] action:nil keyEquivalent:@""];
-    
+
     if (menuItem) {
         NSMenu *mainMenu = [[[NSMenu alloc] initWithTitle:@"CoderPower"] autorelease];
         mainMenu.autoenablesItems = NO;
         menuItem.submenu = mainMenu;
-        
-        // main
-        NSMenuItem *switchItem = [[[NSMenuItem alloc] initWithTitle:@"Disable CoderPower" action:@selector(switchItemClick:) keyEquivalent:@""] autorelease];
+
+        // shake item
+        NSMenuItem *switchItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Shake" action:@selector(shakeItemClick:) keyEquivalent:@""] autorelease];
         switchItem.target = menuItem;
         [mainMenu addItem:switchItem];
-        menuItem.switchItem = switchItem;
+        menuItem.shake = switchItem;
+
+		// buble
+		NSMenuItem *bubbleItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Bubble" action:@selector(bubbleItemClick:) keyEquivalent:@""] autorelease];
+		bubbleItem.target = menuItem;
+		[mainMenu addItem:bubbleItem];
+		menuItem.bubble = bubbleItem;
 		[menuItem updateTitles];
     }
     return [menuItem autorelease];
@@ -38,25 +45,27 @@
 
 - (void)dealloc
 {
-    self.switchItem = nil;
+    self.shake = nil;
+	self.bubble = nil;
     [super dealloc];
 }
 
 #pragma mark -
 
-- (void)updateTitles
-{
-    if (CDPUserInfoManager.isOn) {
-        _switchItem.title = @"Disable CoderPower";
+- (void)updateTitles {
+    if (CDPUserInfoManager.isShakeOn) {
+        self.shake.title = @"Disable Shake";
     } else {
-        _switchItem.title = @"Enable CoderPower";
+        self.shake.title = @"Enable Shake";
     }
 }
 
-- (void)switchItemClick:(id)sender
-{
-    CDPUserInfoManager.isOn = !CDPUserInfoManager.isOn;
+- (void)shakeItemClick:(id)sender {
+    CDPUserInfoManager.isShakeOn = !CDPUserInfoManager.isShakeOn;
     [self updateTitles];
+}
+
+- (void)bubbleItemClick:(id)sender {
 }
 
 //- (void)shakeItemClick:(id)sender

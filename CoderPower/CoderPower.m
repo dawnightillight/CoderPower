@@ -49,6 +49,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.bundle = nil;
+	self.viewMaps = nil;
     [super dealloc];
 }
 
@@ -84,10 +85,10 @@
 		return;
 	//////////////////////////////////////////////////////////////
 
-	if ([CDPUserInfoManager isOn]) {
+	if ([CDPUserInfoManager isShakeOn])
 		[self shake];
-		[self bubble:textView];
-	}
+
+	[self bubble:textView];
 }
 
 #pragma mark - 

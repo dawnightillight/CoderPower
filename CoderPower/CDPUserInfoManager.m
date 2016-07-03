@@ -8,53 +8,22 @@
 
 #import "CDPUserInfoManager.h"
 
-#define kKeySwitch @"kKeySwitch"
-//#define kKeyShake @"kKeyShake"
-//#define kKeyBreathLight @"kKeyBreathLight"
-//#define kKeyEffect @"kKeyEffect"
+#define kKeyShake @"kKeyShake"
+#define kKeyBubble @"kKeyBubble"
 
 @implementation CDPUserInfoManager
 
-+ (BOOL)isOn
-{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeySwitch]) {
-        [self setIsOn:YES];
++ (BOOL)isShakeOn {
+    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyShake]) {
+        [self setIsShakeOn:YES];
     }
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kKeySwitch];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyShake];
 }
 
-+ (void)setIsOn:(BOOL)isOn
-{
-    [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeySwitch];
++ (void)setIsShakeOn:(BOOL)isOn {
+    [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeyShake];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-//+ (BOOL)isShakeOn
-//{
-//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyShake]) {
-//        [self setIsShakeOn:YES];
-//    }
-//    return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyShake];
-//}
-//
-//+ (void)setIsShakeOn:(BOOL)isShakeOn
-//{
-//    [[NSUserDefaults standardUserDefaults] setBool:isShakeOn forKey:kKeyShake];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-
-//+ (CDPUserInfoEffectType)effectType
-//{
-//    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyEffect]) {
-//        [self setEffectType:CDPUserInfoEffectTypeWhite];
-//    }
-//    return [[NSUserDefaults standardUserDefaults] integerForKey:kKeyEffect];
-//}
-//
-//+ (void)setEffectType:(CDPUserInfoEffectType)effectType
-//{
-//    [[NSUserDefaults standardUserDefaults] setInteger:effectType forKey:kKeyEffect];
-//    [[NSUserDefaults standardUserDefaults] synchronize];
-//}
 
 @end
