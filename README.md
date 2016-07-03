@@ -1,5 +1,6 @@
 # CoderPower
 A Xcode Plug-in imitating the activate-power-mode atom package. Shake &amp; Spark effect included.
+
 ![image](https://github.com/tyzual/coderpower/sample.gif)
 
 ##Install
