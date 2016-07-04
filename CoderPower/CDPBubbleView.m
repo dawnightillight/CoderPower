@@ -78,12 +78,20 @@
 	return self;
 }
 
+-(void) viewDidChangeBackingProperties {
+	self.layer.contentsScale = [[self window] backingScaleFactor];
+}
+
+-(BOOL) layer:(CALayer *)layer shouldInheritContentsScale:(CGFloat)newScale fromWindow:(NSWindow *)window {
+	return YES;
+}
+
 -(void) animate:(long long) deltaTime {
 	NSArray<CDPDot *> *dotsCopy = nil;
 	@synchronized (self.dots) {
 		dotsCopy = [self.dots copy];
 	}
-	deltaTime = deltaTime * 0.001;
+	deltaTime = deltaTime * 0.0000005;
 	for (CDPDot *dot in dotsCopy) {
 		NSDate *now = [NSDate date];
 		NSTimeInterval lifeTime = [now timeIntervalSinceDate:dot.generateDate];
@@ -145,6 +153,7 @@ static NSColor *generateRandomColor() {
 			dot.ax = [NSNumber randomBetween:1 and:2] * 0.1 * [NSNumber randomSign];
 			dot.vy = [NSNumber randomBetween:0 and:10];
 			dot.ay = [NSNumber randomBetween:1 and:5] * 0.1 * -1;
+			dot.delegate = self;
 			[self.layer addSublayer:dot];
 			[self.dots addObject:dot];
 		}
