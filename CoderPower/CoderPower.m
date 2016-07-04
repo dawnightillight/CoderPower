@@ -88,7 +88,8 @@
 	if ([CDPUserInfoManager isShakeOn])
 		[self shake];
 
-	[self bubble:textView];
+	if ([CDPUserInfoManager isBubbleOn])
+		[self bubble:textView];
 }
 
 #pragma mark - 

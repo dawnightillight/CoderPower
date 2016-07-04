@@ -58,6 +58,12 @@
     } else {
         self.shake.title = @"Enable Shake";
     }
+
+	if (CDPUserInfoManager.isBubbleOn) {
+		self.bubble.title = @"Disable Bubble";
+	} else {
+		self.bubble.title = @"Enable Bubble";
+	}
 }
 
 - (void)shakeItemClick:(id)sender {
@@ -66,26 +72,8 @@
 }
 
 - (void)bubbleItemClick:(id)sender {
+	CDPUserInfoManager.isBubbleOn = !CDPUserInfoManager.isBubbleOn;
+	[self updateTitles];
 }
-
-//- (void)shakeItemClick:(id)sender
-//{
-//    CDPUserInfoManager.isShakeOn = !CDPUserInfoManager.isShakeOn;
-//    [self updateTitles];
-//
-//}
-//
-//- (void)effectWhiteItemClick:(id)sender
-//{
-//    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeWhite;
-//    [self updateTitles];
-//}
-//
-//- (void)effectOrangeItemClick:(id)sender
-//{
-//    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeOrange;
-//    [self updateTitles];
-//
-//}
 
 @end

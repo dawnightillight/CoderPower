@@ -8,14 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-//typedef NS_ENUM(NSInteger, CDPUserInfoEffectType) {
-//    CDPUserInfoEffectTypeWhite,
-//    CDPUserInfoEffectTypeOrange,
-//};
-
 @interface CDPUserInfoManager : NSObject
 
 + (BOOL)isShakeOn;
 + (void)setIsShakeOn:(BOOL)isOn;
+
++ (BOOL)isBubbleOn;
++ (void)setIsBubbleOn:(BOOL)isOn;
 
 @end

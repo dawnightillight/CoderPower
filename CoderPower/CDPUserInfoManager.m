@@ -25,5 +25,16 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
++ (BOOL)isBubbleOn {
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyBubble])
+		[self setIsBubbleOn:YES];
+
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyBubble];
+}
+
++ (void)setIsBubbleOn:(BOOL)isOn {
+	[[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeyBubble];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 @end
