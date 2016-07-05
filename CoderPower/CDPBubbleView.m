@@ -100,6 +100,8 @@
 			[dot removeFromSuperlayer];
 			@synchronized (self.dots) {
 				[self.dots removeObject:dot];
+				if (self.dots.count == 0)
+					[self removeFromSuperview];
 			}
 		}
 		[CATransaction begin];

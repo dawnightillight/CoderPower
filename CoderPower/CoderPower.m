@@ -123,6 +123,9 @@
 		[self.viewMaps setObject:bubbleView forKey:view.identifier];
 	}
 
+	if (!bubbleView.superview)
+		[view addSubview:bubbleView];
+
 	[bubbleView addBubbleAtPoint:point];
 }
 
