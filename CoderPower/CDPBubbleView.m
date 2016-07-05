@@ -40,7 +40,7 @@
 		self.vy = 10;
 		self.ax = 0;
 		self.ay = 0;
-		NSInteger lifeTime = [NSNumber randomBetween:3 and:7];
+		NSInteger lifeTime = [NSNumber randomBetween:3 and:7] * 3;
 		self.lifeTime = lifeTime / 10.f;
 	}
 	return self;
@@ -145,16 +145,16 @@ static NSColor *generateRandomColor() {
 
 -(void) addBubbleAtPoint:(CGPoint) point {
 	@synchronized (self.dots) {
-		NSInteger bubleCount = [NSNumber randomBetween:3 and:11];
+		NSInteger bubleCount = [NSNumber randomBetween:10 and:16];
 		for (int i = 0; i < bubleCount; ++i) {
 			// 直径
 			NSInteger bubleDiameter = [NSNumber randomBetween:3 and:6];
 			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, bubleDiameter, bubleDiameter) dotColor:generateRandomColor()] autorelease];
 			dot.position = CGPointMake(point.x, self.frame.size.height - point.y);
-			dot.vx = [NSNumber randomBetween:1 and:5] * 0.1 * [NSNumber randomSign];
-			dot.ax = [NSNumber randomBetween:1 and:2] * 0.1 * [NSNumber randomSign];
-			dot.vy = [NSNumber randomBetween:0 and:10];
-			dot.ay = [NSNumber randomBetween:1 and:5] * 0.1 * -1;
+			dot.vx = [NSNumber randomBetween:1 and:5] * 0.1 * [NSNumber randomSign] / 3;
+			dot.ax = [NSNumber randomBetween:1 and:2] * 0.1 * [NSNumber randomSign] / 3;
+			dot.vy = [NSNumber randomBetween:0 and:10] / 3;
+			dot.ay = [NSNumber randomBetween:1 and:5] * 0.1 * -1 / 3;
 			dot.delegate = self;
 			[self.layer addSublayer:dot];
 			[self.dots addObject:dot];
