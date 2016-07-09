@@ -91,7 +91,7 @@
 	@synchronized (self.dots) {
 		dotsCopy = [self.dots copy];
 	}
-	deltaTime = deltaTime * 0.0000005;
+	deltaTime = deltaTime * 0.0000001;
 	for (CDPDot *dot in dotsCopy) {
 		NSDate *now = [NSDate date];
 		NSTimeInterval lifeTime = [now timeIntervalSinceDate:dot.generateDate];

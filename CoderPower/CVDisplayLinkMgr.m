@@ -24,7 +24,7 @@ static CVReturn renderCallback(CVDisplayLinkRef displayLink,
 							   CVOptionFlags *flagsOut,
 							   void *displayLinkContext) {
 	static long long deltaTime = 0;
-	deltaTime = inOutputTime->videoTime - inNow->videoTime;
+	deltaTime = inOutputTime->hostTime - inNow->hostTime;
 	CVDisplayLinkMgr *mgr = [CVDisplayLinkMgr getInstance];
 	[mgr updateAnimate:deltaTime];
 	return kCVReturnSuccess;
