@@ -31,6 +31,7 @@
 		6808EF421D25EEF600B446C7 /* NSNumber+Append.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Append.m"; sourceTree = "<group>"; };
 		6808EF441D25F18000B446C7 /* CDPBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPBubbleView.h; sourceTree = "<group>"; };
 		6808EF451D25F18000B446C7 /* CDPBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPBubbleView.m; sourceTree = "<group>"; };
+		684EC8FB1D41FB7F00A1A70F /* DVTTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTTextStorage.h; sourceTree = "<group>"; };
 		689AE2751D267CB800100658 /* CVDisplayLinkMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVDisplayLinkMgr.h; sourceTree = "<group>"; };
 		689AE2761D267CB800100658 /* CVDisplayLinkMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVDisplayLinkMgr.m; sourceTree = "<group>"; };
 		689AE2781D26825200100658 /* CDPBubleAnimateDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CDPBubleAnimateDelegate.h; sourceTree = "<group>"; };
@@ -88,6 +89,7 @@
 		DD2150E01C0C01A30029A779 /* CoderPower */ = {
 			isa = PBXGroup;
 			children = (
+				684EC8FB1D41FB7F00A1A70F /* DVTTextStorage.h */,
 				6808EF411D25EEF600B446C7 /* NSNumber+Append.h */,
 				6808EF421D25EEF600B446C7 /* NSNumber+Append.m */,
 				6808EF3E1D25EED500B446C7 /* CDPViewAnimation.h */,

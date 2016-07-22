@@ -119,37 +119,37 @@
 	[dotsCopy release];
 }
 
-static NSColor *generateRandomColor() {
-	static NSMutableArray<NSColor *> *_color = nil;
-	static dispatch_once_t _onceFlag;
-	dispatch_once(&_onceFlag, ^{
-		_color = [[NSMutableArray<NSColor *> alloc] init];
-		[_color addObject:[NSColor colorWithRed:255 / 255.f green:255 / 255.f blue:255 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:65 / 255.f green:204 / 255.f blue:69 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:255 / 255.f green:44 / 255.f blue:56 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:120 / 255.f green:109 / 255.f blue:255 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:211 / 255.f green:24 / 255.f blue:149 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:228 / 255.f green:124 / 255.f blue:72 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:65 / 255.f green:100 / 255.f blue:255 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:63 / 255.f green:88 / 255.f blue:116 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:35 / 255.f green:255 / 255.f blue:131 / 255.f alpha:1]];
-		[_color addObject:[NSColor colorWithRed:0 / 255.f green:160 / 255.f blue:255 / 255.f alpha:1]];
-	});
-	NSInteger index = [NSNumber randomBetween:0 and:_color.count];
-	if (index == _color.count)
-		--index;
-	if (index < 0)
-		++index;
-	return [_color objectAtIndex:index];
-}
+//static NSColor *generateRandomColor() {
+//	static NSMutableArray<NSColor *> *_color = nil;
+//	static dispatch_once_t _onceFlag;
+//	dispatch_once(&_onceFlag, ^{
+//		_color = [[NSMutableArray<NSColor *> alloc] init];
+//		[_color addObject:[NSColor colorWithRed:255 / 255.f green:255 / 255.f blue:255 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:65 / 255.f green:204 / 255.f blue:69 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:255 / 255.f green:44 / 255.f blue:56 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:120 / 255.f green:109 / 255.f blue:255 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:211 / 255.f green:24 / 255.f blue:149 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:228 / 255.f green:124 / 255.f blue:72 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:65 / 255.f green:100 / 255.f blue:255 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:63 / 255.f green:88 / 255.f blue:116 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:35 / 255.f green:255 / 255.f blue:131 / 255.f alpha:1]];
+//		[_color addObject:[NSColor colorWithRed:0 / 255.f green:160 / 255.f blue:255 / 255.f alpha:1]];
+//	});
+//	NSInteger index = [NSNumber randomBetween:0 and:_color.count];
+//	if (index == _color.count)
+//		--index;
+//	if (index < 0)
+//		++index;
+//	return [_color objectAtIndex:index];
+//}
 
--(void) addBubbleAtPoint:(CGPoint) point {
+-(void) addBubbleAtPoint:(CGPoint) point color:(NSColor *) color {
 	@synchronized (self.dots) {
 		NSInteger bubleCount = [NSNumber randomBetween:10 and:16];
 		for (int i = 0; i < bubleCount; ++i) {
 			// 直径
 			NSInteger bubleDiameter = [NSNumber randomBetween:3 and:6];
-			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, bubleDiameter, bubleDiameter) dotColor:generateRandomColor()] autorelease];
+			CDPDot *dot = [[[CDPDot alloc] initWithFrame:CGRectMake(0, 0, bubleDiameter, bubleDiameter) dotColor:color] autorelease];
 			dot.position = CGPointMake(point.x, self.frame.size.height - point.y);
 			dot.vx = [NSNumber randomBetween:1 and:5] * 0.1 * [NSNumber randomSign] / 3;
 			dot.ax = [NSNumber randomBetween:1 and:2] * 0.1 * [NSNumber randomSign] / 3;

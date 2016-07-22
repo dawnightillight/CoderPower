@@ -12,7 +12,7 @@
 #import "CDPViewAnimation.h"
 #import "NSNumber+Append.h"
 #import "CDPBubbleView.h"
-//#import "CDPDot.h"
+#import "DVTTextStorage.h"
 
 #define kAnimationTagShake (233)
 
@@ -115,6 +115,16 @@
 	if (!view.identifier)
 		view.identifier = [[NSUUID UUID] UUIDString];
 
+	NSColor *color = [NSColor whiteColor];
+	if ([view.textStorage isKindOfClass:NSClassFromString(@"DVTTextStorage")]) {
+		DVTTextStorage *storage = (DVTTextStorage *)view.textStorage;
+		NSInteger location = view.selectedRange.location;
+		NSRange range = NSMakeRange(location, 1);
+		location = MAX(location - 1, 0);
+		color = [storage colorAtCharacterIndex:location effectiveRange:&range context:nil];
+//		NSLog(@"color : %@", color);
+	}
+
 	CDPBubbleView *bubbleView = [self.viewMaps objectForKey:view.identifier];
 	if (!bubbleView) {
 		bubbleView = [[CDPBubbleView alloc] initWithFrame:view.bounds];
@@ -126,7 +136,7 @@
 	if (!bubbleView.superview)
 		[view addSubview:bubbleView];
 
-	[bubbleView addBubbleAtPoint:point];
+	[bubbleView addBubbleAtPoint:point color:color];
 }
 
 - (void)shake

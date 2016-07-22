@@ -12,6 +12,6 @@
 
 -(instancetype) initWithFrame:(NSRect)frameRect;
 
--(void) addBubbleAtPoint:(CGPoint) point;
+-(void) addBubbleAtPoint:(CGPoint) point color:(NSColor *) color;
 
 @end
