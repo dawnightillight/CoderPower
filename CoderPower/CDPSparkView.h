@@ -12,6 +12,6 @@
 
 -(instancetype) initWithFrame:(NSRect)frameRect;
 
--(void) addSparkAtPoint:(CGPoint) point color:(NSColor *) color;
+-(void) addSparkAtPoint:(CGPoint) point colors:(NSArray<NSColor *> *) colors;
 
 @end

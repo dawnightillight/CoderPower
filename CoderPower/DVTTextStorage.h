@@ -4,6 +4,7 @@
 //     class-dump is Copyright (C) 1997-1998, 2000-2001, 2004-2013 by Steve Nygard.
 //
 
+#import "DVTFontAndColorTheme.h"
 
 @interface DVTTextStorage : NSTextStorage/* <DVTSourceBufferProvider, DVTSourceLanguageServiceDelegate>*/
 {
@@ -23,7 +24,7 @@
     unsigned long long _wrappedLineIndentWidth;
 //    DVTObservingToken *_wrappedLinesIndentObserver;
     double _advancementForSpace;
-//    DVTFontAndColorTheme *_fontAndColorTheme;
+    DVTFontAndColorTheme *_fontAndColorTheme;
     struct _NSRange _rangeNeedingInvalidation;
     struct {
         unsigned int lineEndings:2;
@@ -73,7 +74,7 @@
 - (id)colorAtCharacterIndex:(unsigned long long)arg1 effectiveRange:(struct _NSRange *)arg2 context:(id)arg3;
 - (long long)nodeTypeAtCharacterIndex:(unsigned long long)arg1 effectiveRange:(struct _NSRange *)arg2 context:(id)arg3;
 - (void)_themeColorsChanged:(id)arg1;
-//@property(retain) DVTFontAndColorTheme *fontAndColorTheme;
+@property(retain) DVTFontAndColorTheme *fontAndColorTheme;
 @property(getter=isSyntaxColoringEnabled) BOOL syntaxColoringEnabled;
 - (id)stringBySwappingRange:(struct _NSRange)arg1 withAdjacentRange:(struct _NSRange)arg2;
 - (struct _NSRange)functionOrMethodBodyRangeAtIndex:(unsigned long long)arg1;

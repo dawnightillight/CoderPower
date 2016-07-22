@@ -7,6 +7,9 @@
 //
 
 #import "CoderPower.h"
+
+#import <objc/runtime.h>
+
 #import "CDPMainMenuItem.h"
 #import "CDPUserInfoManager.h"
 #import "CDPViewAnimation.h"
@@ -111,18 +114,37 @@
     }
 }
 
+NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
+	NSMutableArray<NSColor *> *colors = [[[NSMutableArray alloc] init] autorelease];
+	DVTFontAndColorTheme *clrTheme = storage.fontAndColorTheme;
+	unsigned int count = 0;
+	objc_property_t *properties = class_copyPropertyList([clrTheme class], &count);
+	for (int i = 0; i < count; ++i) {
+		objc_property_t property = properties[i];
+		NSString *name = [NSString stringWithUTF8String:property_getName(property)];
+		id propValue = [clrTheme valueForKeyPath:name];
+		if ([propValue isKindOfClass:[NSColor class]]) {
+			[colors addObject:[propValue copy]];
+		}
+	}
+	if (colors.count == 0)
+		[colors addObject:[NSColor whiteColor]];
+
+	return colors;
+}
+
 - (void)hanabiAt:(NSPoint)point view:(NSTextView *)view {
 	if (!view.identifier)
 		view.identifier = [[NSUUID UUID] UUIDString];
 
-	NSColor *color = [NSColor whiteColor];
+	NSArray<NSColor *> *colors = nil;
 	if ([view.textStorage isKindOfClass:NSClassFromString(@"DVTTextStorage")]) {
 		DVTTextStorage *storage = (DVTTextStorage *)view.textStorage;
 		NSInteger location = view.selectedRange.location;
 		NSRange range = NSMakeRange(location, 1);
 		location = MAX(location - 1, 0);
-		color = [storage colorAtCharacterIndex:location effectiveRange:&range context:nil];
-//		NSLog(@"color : %@", color);
+//		colors = colorsInTextStorage(storage);
+		colors = @[[storage colorAtCharacterIndex:location effectiveRange:&range context:nil]];
 	}
 
 	CDPSparkView *sparkView = [self.viewMaps objectForKey:view.identifier];
@@ -136,7 +158,7 @@
 	if (!sparkView.superview)
 		[view addSubview:sparkView];
 
-	[sparkView addSparkAtPoint:point color:color];
+	[sparkView addSparkAtPoint:point colors:colors];
 }
 
 - (void)shake
