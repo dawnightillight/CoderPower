@@ -9,7 +9,7 @@
 #import "CDPUserInfoManager.h"
 
 #define kKeyShake @"kKeyShake"
-#define kKeyBubble @"kKeyBubble"
+#define kKeySpark @"kKeySpark"
 
 @implementation CDPUserInfoManager
 
@@ -25,15 +25,15 @@
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (BOOL)isBubbleOn {
-	if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyBubble])
-		[self setIsBubbleOn:YES];
++ (BOOL)isSparkOn {
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeySpark])
+		[self setIsSparkOn:YES];
 
-	return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyBubble];
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kKeySpark];
 }
 
-+ (void)setIsBubbleOn:(BOOL)isOn {
-	[[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeyBubble];
++ (void)setIsSparkOn:(BOOL)isOn {
+	[[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeySpark];
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 

@@ -1,12 +1,12 @@
 //
-//  CDPBubbleView.m
+//  CDPSparkView.m
 //  CoderPower
 //
 //  Created by tyzual on 7/1/16.
 //  Copyright © 2016 Dawn. All rights reserved.
 //
 
-#import "CDPBubbleView.h"
+#import "CDPSparkView.h"
 
 #import <Quartz/Quartz.h>
 
@@ -61,11 +61,11 @@
 
 @end
 
-@interface CDPBubbleView() <CDPBubleAnimateDelegate>
+@interface CDPSparkView() <CDPBubleAnimateDelegate>
 @property (nonatomic, retain) NSMutableArray<CDPDot *> *dots;
 @end
 
-@implementation CDPBubbleView
+@implementation CDPSparkView
 
 -(instancetype) initWithFrame:(NSRect)frameRect {
 	if ((self = [super initWithFrame:frameRect]) != nil) {
@@ -143,7 +143,7 @@
 //	return [_color objectAtIndex:index];
 //}
 
--(void) addBubbleAtPoint:(CGPoint) point color:(NSColor *) color {
+-(void) addSparkAtPoint:(CGPoint) point color:(NSColor *) color {
 	@synchronized (self.dots) {
 		NSInteger bubleCount = [NSNumber randomBetween:10 and:16];
 		for (int i = 0; i < bubleCount; ++i) {

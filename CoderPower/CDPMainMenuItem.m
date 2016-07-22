@@ -13,7 +13,8 @@
 @interface CDPMainMenuItem ()
 
 @property(nonatomic, retain) NSMenuItem *shake;
-@property(nonatomic, retain) NSMenuItem *bubble;
+@property(nonatomic, retain) NSMenuItem *spark;
+@property(nonatomic, retain) NSMenuItem *version;
 
 @end
 
@@ -34,11 +35,19 @@
         menuItem.shake = switchItem;
 
 		// buble
-		NSMenuItem *bubbleItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Bubble" action:@selector(bubbleItemClick:) keyEquivalent:@""] autorelease];
-		bubbleItem.target = menuItem;
-		[mainMenu addItem:bubbleItem];
-		menuItem.bubble = bubbleItem;
+		NSMenuItem *sparkItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Spark" action:@selector(sparkItemClick:) keyEquivalent:@""] autorelease];
+		sparkItem.target = menuItem;
+		[mainMenu addItem:sparkItem];
+		menuItem.spark = sparkItem;
+
+		// version
+		NSMenuItem *versionItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"version %@", CDPAppVersion] action:nil keyEquivalent:@""];
+		versionItem.enabled = NO;
+		[mainMenu addItem:versionItem];
+		menuItem.version = versionItem;
+
 		[menuItem updateTitles];
+
     }
     return [menuItem autorelease];
 }
@@ -46,7 +55,7 @@
 - (void)dealloc
 {
     self.shake = nil;
-	self.bubble = nil;
+	self.spark = nil;
     [super dealloc];
 }
 
@@ -59,10 +68,10 @@
         self.shake.title = @"Enable Shake";
     }
 
-	if (CDPUserInfoManager.isBubbleOn) {
-		self.bubble.title = @"Disable Bubble";
+	if (CDPUserInfoManager.isSparkOn) {
+		self.spark.title = @"Disable Spark";
 	} else {
-		self.bubble.title = @"Enable Bubble";
+		self.spark.title = @"Enable Spark";
 	}
 }
 
@@ -71,8 +80,8 @@
     [self updateTitles];
 }
 
-- (void)bubbleItemClick:(id)sender {
-	CDPUserInfoManager.isBubbleOn = !CDPUserInfoManager.isBubbleOn;
+- (void)sparkItemClick:(id)sender {
+	CDPUserInfoManager.isSparkOn = !CDPUserInfoManager.isSparkOn;
 	[self updateTitles];
 }
 

@@ -1,5 +1,5 @@
 //
-//  CDPBubbleView.h
+//  CDPSparkView.h
 //  CoderPower
 //
 //  Created by tyzual on 7/1/16.
@@ -8,10 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CDPBubbleView : NSView
+@interface CDPSparkView : NSView
 
 -(instancetype) initWithFrame:(NSRect)frameRect;
 
--(void) addBubbleAtPoint:(CGPoint) point color:(NSColor *) color;
+-(void) addSparkAtPoint:(CGPoint) point color:(NSColor *) color;
 
 @end

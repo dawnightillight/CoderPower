@@ -13,7 +13,7 @@
 + (BOOL)isShakeOn;
 + (void)setIsShakeOn:(BOOL)isOn;
 
-+ (BOOL)isBubbleOn;
-+ (void)setIsBubbleOn:(BOOL)isOn;
++ (BOOL)isSparkOn;
++ (void)setIsSparkOn:(BOOL)isOn;
 
 @end

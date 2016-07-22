@@ -11,7 +11,7 @@
 #import "CDPUserInfoManager.h"
 #import "CDPViewAnimation.h"
 #import "NSNumber+Append.h"
-#import "CDPBubbleView.h"
+#import "CDPSparkView.h"
 #import "DVTTextStorage.h"
 
 #define kAnimationTagShake (233)
@@ -22,7 +22,7 @@
 }
 
 @property (nonatomic, retain, readwrite) NSBundle *bundle;
-@property (nonatomic, retain) NSMutableDictionary<NSString *, CDPBubbleView *> *viewMaps;
+@property (nonatomic, retain) NSMutableDictionary<NSString *, CDPSparkView *> *viewMaps;
 
 @end
 
@@ -37,7 +37,7 @@
 {
     if (self = [super init]) {
         self.bundle = plugin;
-		self.viewMaps = [[[NSMutableDictionary<NSString *, CDPBubbleView *> alloc] init] autorelease];
+		self.viewMaps = [[[NSMutableDictionary<NSString *, CDPSparkView *> alloc] init] autorelease];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didApplicationFinishLaunchingNotification:) name:NSApplicationDidFinishLaunchingNotification object:nil];
         
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:nil];
@@ -88,13 +88,13 @@
 	if ([CDPUserInfoManager isShakeOn])
 		[self shake];
 
-	if ([CDPUserInfoManager isBubbleOn])
-		[self bubble:textView];
+	if ([CDPUserInfoManager isSparkOn])
+		[self spark:textView];
 }
 
 #pragma mark - 
 
-- (void)bubble:(NSTextView *)textView
+- (void)spark:(NSTextView *)textView
 {
     if (textView != nil) {
         NSInteger cursorPoint = [[[textView selectedRanges] objectAtIndex:0] rangeValue].location;
@@ -125,18 +125,18 @@
 //		NSLog(@"color : %@", color);
 	}
 
-	CDPBubbleView *bubbleView = [self.viewMaps objectForKey:view.identifier];
-	if (!bubbleView) {
-		bubbleView = [[CDPBubbleView alloc] initWithFrame:view.bounds];
-		[view addSubview:bubbleView];
-		[bubbleView release];
-		[self.viewMaps setObject:bubbleView forKey:view.identifier];
+	CDPSparkView *sparkView = [self.viewMaps objectForKey:view.identifier];
+	if (!sparkView) {
+		sparkView = [[CDPSparkView alloc] initWithFrame:view.bounds];
+		[view addSubview:sparkView];
+		[sparkView release];
+		[self.viewMaps setObject:sparkView forKey:view.identifier];
 	}
 
-	if (!bubbleView.superview)
-		[view addSubview:bubbleView];
+	if (!sparkView.superview)
+		[view addSubview:sparkView];
 
-	[bubbleView addBubbleAtPoint:point color:color];
+	[sparkView addSparkAtPoint:point color:color];
 }
 
 - (void)shake
