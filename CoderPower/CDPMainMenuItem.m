@@ -15,6 +15,8 @@
 @property(nonatomic, retain) NSMenuItem *shake;
 @property(nonatomic, retain) NSMenuItem *spark;
 @property(nonatomic, retain) NSMenuItem *version;
+@property(nonatomic, retain) NSMenuItem *clrCar;
+@property(nonatomic, retain) NSMenuItem *clrSche;
 
 @end
 
@@ -39,6 +41,31 @@
 		sparkItem.target = menuItem;
 		[mainMenu addItem:sparkItem];
 		menuItem.spark = sparkItem;
+
+		// color
+		NSMenuItem *colorItem = [[[NSMenuItem alloc] initWithTitle:@"Spark Colors" action:nil keyEquivalent:@""] autorelease];
+		colorItem.enabled = YES;
+
+		NSMenu *colorSubMenu = [[[NSMenu alloc] initWithTitle:@"color"] autorelease];
+		colorSubMenu.autoenablesItems = NO;
+		[colorSubMenu setAccessibilityEnabled:NO];
+
+		colorItem.submenu = colorSubMenu;
+
+		NSMenuItem *colorAtCaret = [[[NSMenuItem alloc] initWithTitle:@"At Caret" action:@selector(colorAtCaret:) keyEquivalent:@""] autorelease];
+		NSMenuItem *colorInScheme = [[[NSMenuItem alloc] initWithTitle:@"Color In Current Colorscheme" action:@selector(colorInScheme:) keyEquivalent:@""] autorelease];
+
+		colorAtCaret.target = menuItem;
+		colorInScheme.target = menuItem;
+		menuItem.clrCar = colorAtCaret;
+		menuItem.clrSche = colorInScheme;
+		[colorAtCaret setEnabled:YES];
+		[colorInScheme setEnabled:YES];
+
+		[colorSubMenu addItem:colorAtCaret];
+		[colorSubMenu addItem:colorInScheme];
+
+		[mainMenu addItem:colorItem];
 
 		// version
 		NSMenuItem *versionItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"version %@", CDPAppVersion] action:nil keyEquivalent:@""];
@@ -73,6 +100,26 @@
 	} else {
 		self.spark.title = @"Enable Spark";
 	}
+
+
+	self.clrCar.state = 0;
+	self.clrSche.state = 0;
+	if (CDPUserInfoManager.isSparkOn) {
+		[self.clrCar setEnabled:YES];
+		[self.clrSche setEnabled:YES];
+		switch ([CDPUserInfoManager getClr]) {
+	  		case clrCrt:
+				self.clrCar.state = 1;
+				break;
+			case clrSch:
+				self.clrSche.state = 1;
+			default:
+				break;
+		}
+	} else {
+		[self.clrCar setEnabled:NO];
+		[self.clrSche setEnabled:NO];
+	}
 }
 
 - (void)shakeItemClick:(id)sender {
@@ -82,6 +129,16 @@
 
 - (void)sparkItemClick:(id)sender {
 	CDPUserInfoManager.isSparkOn = !CDPUserInfoManager.isSparkOn;
+	[self updateTitles];
+}
+
+- (void)colorAtCaret:(id)sender {
+	[CDPUserInfoManager setClr:clrCrt];
+	[self updateTitles];
+}
+
+- (void)colorInScheme:(id)sender {
+	[CDPUserInfoManager setClr:clrSch];
 	[self updateTitles];
 }
 

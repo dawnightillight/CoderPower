@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define clrSch 1
+#define clrCrt 2
+
 @interface CDPUserInfoManager : NSObject
 
 + (BOOL)isShakeOn;
@@ -15,5 +19,8 @@
 
 + (BOOL)isSparkOn;
 + (void)setIsSparkOn:(BOOL)isOn;
+
++ (NSInteger)getClr;
++ (void)setClr:(NSInteger)clr;
 
 @end

@@ -10,6 +10,7 @@
 
 #define kKeyShake @"kKeyShake"
 #define kKeySpark @"kKeySpark"
+#define kClr @"kClr"
 
 @implementation CDPUserInfoManager
 
@@ -37,4 +38,16 @@
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
++ (NSInteger)getClr {
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:kClr])
+		[self setClr:clrCrt];
+
+	return [[NSUserDefaults standardUserDefaults] integerForKey:kClr];
+}
+
++ (void)setClr:(NSInteger)clr {
+	[[NSUserDefaults standardUserDefaults] setInteger:clr forKey:kClr];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
 @end

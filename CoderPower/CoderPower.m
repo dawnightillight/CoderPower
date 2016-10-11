@@ -114,7 +114,7 @@
     }
 }
 
-NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
+static NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
 	NSMutableArray<NSColor *> *colors = [[[NSMutableArray alloc] init] autorelease];
 	DVTFontAndColorTheme *clrTheme = storage.fontAndColorTheme;
 	unsigned int count = 0;
@@ -123,7 +123,8 @@ NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
 		objc_property_t property = properties[i];
 		NSString *name = [NSString stringWithUTF8String:property_getName(property)];
 		id propValue = [clrTheme valueForKeyPath:name];
-		if ([propValue isKindOfClass:[NSColor class]]) {
+		if ([propValue isKindOfClass:[NSColor class]]
+			&& ![colors containsObject:propValue]) {
 			[colors addObject:[propValue copy]];
 		}
 	}
@@ -140,11 +141,15 @@ NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
 	NSArray<NSColor *> *colors = nil;
 	if ([view.textStorage isKindOfClass:NSClassFromString(@"DVTTextStorage")]) {
 		DVTTextStorage *storage = (DVTTextStorage *)view.textStorage;
-		NSInteger location = view.selectedRange.location;
-		NSRange range = NSMakeRange(location, 1);
-		location = MAX(location - 1, 0);
-//		colors = colorsInTextStorage(storage);
-		colors = @[[storage colorAtCharacterIndex:location effectiveRange:&range context:nil]];
+		NSInteger clrType = [CDPUserInfoManager getClr];
+		if (clrType == clrCrt) {
+			NSInteger location = view.selectedRange.location;
+			location = MAX(location - 1, 0);
+			NSRange range = NSMakeRange(location, 1);
+			colors = @[[storage colorAtCharacterIndex:location effectiveRange:&range context:nil]];
+		} else if (clrType == clrSch) {
+			colors = colorsInTextStorage(storage);
+		}
 	}
 
 	CDPSparkView *sparkView = [self.viewMaps objectForKey:view.identifier];

@@ -61,7 +61,7 @@
 
 @end
 
-@interface CDPSparkView() <CDPBubleAnimateDelegate>
+@interface CDPSparkView() <CDPBubleAnimateDelegate, CALayerDelegate>
 @property (nonatomic, retain) NSMutableArray<CDPDot *> *dots;
 @end
 

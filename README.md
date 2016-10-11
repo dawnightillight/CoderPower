@@ -7,6 +7,10 @@ A Xcode Plug-in imitating the activate-power-mode atom package. Shake &amp; Spar
 Clone this repo and build it
 
 ##Update log
+
+v1.3
+*	add an menu to change spark colors (color at caret or random color in current colorscheme)
+
 v1.2
 *	change spark color to text color at caret
 *	change 'bubble' to 'spark'
