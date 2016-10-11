@@ -163,6 +163,7 @@ static NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
 	if (!sparkView.superview)
 		[view addSubview:sparkView];
 
+	sparkView.frame = view.bounds;
 	[sparkView addSparkAtPoint:point colors:colors];
 }
 
@@ -211,7 +212,5 @@ static NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
     }
     [animation autorelease];
 }
-
-
 
 @end

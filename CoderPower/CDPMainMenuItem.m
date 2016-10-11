@@ -101,7 +101,6 @@
 		self.spark.title = @"Enable Spark";
 	}
 
-
 	self.clrCar.state = 0;
 	self.clrSche.state = 0;
 	if (CDPUserInfoManager.isSparkOn) {
@@ -113,6 +112,7 @@
 				break;
 			case clrSch:
 				self.clrSche.state = 1;
+				break;
 			default:
 				break;
 		}
