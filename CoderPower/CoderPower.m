@@ -7,11 +7,15 @@
 //
 
 #import "CoderPower.h"
+
+#import <objc/runtime.h>
+
 #import "CDPMainMenuItem.h"
 #import "CDPUserInfoManager.h"
 #import "CDPViewAnimation.h"
 #import "NSNumber+Append.h"
-#import "CDPDot.h"
+#import "CDPSparkView.h"
+#import "DVTTextStorage.h"
 
 #define kAnimationTagShake (233)
 
@@ -21,6 +25,7 @@
 }
 
 @property (nonatomic, retain, readwrite) NSBundle *bundle;
+@property (nonatomic, retain) NSMutableDictionary<NSString *, CDPSparkView *> *viewMaps;
 
 @end
 
@@ -34,12 +39,11 @@
 - (id)initWithBundle:(NSBundle *)plugin
 {
     if (self = [super init]) {
-        // reference to plugin's bundle, for resource access
         self.bundle = plugin;
+		self.viewMaps = [[[NSMutableDictionary<NSString *, CDPSparkView *> alloc] init] autorelease];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didApplicationFinishLaunchingNotification:) name:NSApplicationDidFinishLaunchingNotification object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidChangeSelection:) name:NSTextViewDidChangeSelectionNotification object:nil];
-        
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textDidChange:) name:NSTextDidChangeNotification object:nil];
     }
     return self;
 }
@@ -48,6 +52,7 @@
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.bundle = nil;
+	self.viewMaps = nil;
     [super dealloc];
 }
 
@@ -56,55 +61,110 @@
 - (void)didApplicationFinishLaunchingNotification:(NSNotification*)notification
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:NSApplicationDidFinishLaunchingNotification object:nil];
-    
-    NSMenuItem *editItem = [[NSApp mainMenu] itemWithTitle:@"Edit"];
-    if (editItem) {
-        [editItem.submenu addItem:[NSMenuItem separatorItem]]; // 分割线
-        
-        CDPMainMenuItem *mainMenuItem = [CDPMainMenuItem item];
-        [editItem.submenu addItem:mainMenuItem];
-    }
+
+	NSMenu *mainMenu = [NSApp mainMenu];
+	CDPMainMenuItem *CDPItem = [CDPMainMenuItem item];
+	[mainMenu insertItem:CDPItem atIndex:7];
 }
 
-- (void)textViewDidChangeSelection:(NSNotification *)notification
-{
-    id firstResponder = [[NSApp keyWindow] firstResponder];
-    if (![firstResponder isKindOfClass:NSClassFromString(@"DVTSourceTextView")]) return;
-    
-    [self dealWithTextView:firstResponder];
+- (void)textDidChange:(NSNotification *)notification {
+	if (!notification)
+		return;
+
+	id obj = notification.object;
+	if (!obj || ![obj isKindOfClass:[NSTextView class]])
+		return;
+
+	//////////////////////////////////////////////////////////////
+	// 这段代码的本意是只在代码编辑的view上打字时才有特效
+	// 但是目前没有更好的办法判断view是不是代码编辑的view
+	// 通过观察发现在所有view中,代码编辑view的maxSize是
+	// (10000000.00, 10000000.00),所以暂时用这种方法来
+	// 判断
+	//////////////////////////////////////////////////////////////
+	NSTextView *textView = (NSTextView *)obj;
+	NSSize maxSize = textView.maxSize;
+	if (!NSEqualSizes(maxSize, NSMakeSize(10000000.00, 10000000.00)))
+		return;
+	//////////////////////////////////////////////////////////////
+
+	if ([CDPUserInfoManager isShakeOn])
+		[self shake];
+
+	if ([CDPUserInfoManager isSparkOn])
+		[self spark:textView];
 }
 
 #pragma mark - 
 
-- (void)dealWithTextView:(NSTextView *)textView
+- (void)spark:(NSTextView *)textView
 {
-    if (textView != nil && [CDPUserInfoManager isOn]) {
+    if (textView != nil) {
         NSInteger cursorPoint = [[[textView selectedRanges] objectAtIndex:0] rangeValue].location;
         
         NSUInteger count = 1;
         NSRectArray array = [textView.layoutManager rectArrayForCharacterRange:NSMakeRange(cursorPoint, 0)withinSelectedCharacterRange:NSMakeRange(cursorPoint, 0) inTextContainer:textView.textContainer rectCount:&count];
-        NSRect rect = *array;
-        CGPoint actionPosition = NSMakePoint(rect.origin.x+rect.size.width, rect.origin.y);
+		if (count == 0)
+			return;
+
+        NSRect rect = array[0];
+        CGPoint actionPosition = NSMakePoint(rect.origin.x, rect.origin.y);
         
         [self hanabiAt:actionPosition view:textView];
-        
-        // shake
-        if ([CDPUserInfoManager isShakeOn]) {
-             [self shake];
-        }
     }
 }
 
-- (void)hanabiAt:(NSPoint)point view:(NSTextView *)view
-{
-    NSColor *color = [CDPUserInfoManager effectType] == CDPUserInfoEffectTypeWhite ? [NSColor whiteColor] : [NSColor orangeColor];
-    for (int i = 0; i < 10; i++) {
-        CDPDot *dot = [[CDPDot alloc] initWithCenter:point radius:1];
-        dot.backgroundColor = color;
-        [view addSubview:dot];
-        [dot release];
-        [dot animate];
-    }
+static NSArray<NSColor *> *colorsInTextStorage(DVTTextStorage *storage) {
+	NSMutableArray<NSColor *> *colors = [[[NSMutableArray alloc] init] autorelease];
+	DVTFontAndColorTheme *clrTheme = storage.fontAndColorTheme;
+	unsigned int count = 0;
+	objc_property_t *properties = class_copyPropertyList([clrTheme class], &count);
+	for (int i = 0; i < count; ++i) {
+		objc_property_t property = properties[i];
+		NSString *name = [NSString stringWithUTF8String:property_getName(property)];
+		id propValue = [clrTheme valueForKeyPath:name];
+		if ([propValue isKindOfClass:[NSColor class]]
+			&& ![colors containsObject:propValue]) {
+			[colors addObject:[propValue copy]];
+		}
+	}
+	if (colors.count == 0)
+		[colors addObject:[NSColor whiteColor]];
+
+	return colors;
+}
+
+- (void)hanabiAt:(NSPoint)point view:(NSTextView *)view {
+	if (!view.identifier)
+		view.identifier = [[NSUUID UUID] UUIDString];
+
+	NSArray<NSColor *> *colors = nil;
+	if ([view.textStorage isKindOfClass:NSClassFromString(@"DVTTextStorage")]) {
+		DVTTextStorage *storage = (DVTTextStorage *)view.textStorage;
+		NSInteger clrType = [CDPUserInfoManager getClr];
+		if (clrType == clrCrt) {
+			NSInteger location = view.selectedRange.location;
+			location = MAX(location - 1, 0);
+			NSRange range = NSMakeRange(location, 1);
+			colors = @[[storage colorAtCharacterIndex:location effectiveRange:&range context:nil]];
+		} else if (clrType == clrSch) {
+			colors = colorsInTextStorage(storage);
+		}
+	}
+
+	CDPSparkView *sparkView = [self.viewMaps objectForKey:view.identifier];
+	if (!sparkView) {
+		sparkView = [[CDPSparkView alloc] initWithFrame:view.bounds];
+		[view addSubview:sparkView];
+		[sparkView release];
+		[self.viewMaps setObject:sparkView forKey:view.identifier];
+	}
+
+	if (!sparkView.superview)
+		[view addSubview:sparkView];
+
+	sparkView.frame = view.bounds;
+	[sparkView addSparkAtPoint:point colors:colors];
 }
 
 - (void)shake
@@ -119,10 +179,10 @@
     shakeAnimation.delegate = self;
     shakeAnimation.targetView = (NSView *)[NSApp keyWindow];
     NSRect frame = shakeAnimation.fromFrame;
-    frame.origin.x += [NSNumber randomBetween:1 and:2]*5*[NSNumber randomSign];
-    frame.origin.y += [NSNumber randomBetween:1 and:2]*5;
+    frame.origin.x += [NSNumber randomBetween:5 and:10] * [NSNumber randomSign];
+	frame.origin.y += [NSNumber randomBetween:5 and:10] * [NSNumber randomSign];
     shakeAnimation.toFrame = frame;
-    
+
     CDPViewAnimation *reverseAnimation = [[CDPViewAnimation alloc] initWithDuration:duration animationCurve:NSAnimationEaseInOut];
     reverseAnimation.delegate = self;
     reverseAnimation.tag = kAnimationTagShake;
@@ -152,7 +212,5 @@
     }
     [animation autorelease];
 }
-
-
 
 @end

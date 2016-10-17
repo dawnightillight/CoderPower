@@ -8,20 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSInteger, CDPUserInfoEffectType) {
-    CDPUserInfoEffectTypeWhite,
-    CDPUserInfoEffectTypeOrange,
-};
+
+#define clrSch 1
+#define clrCrt 2
 
 @interface CDPUserInfoManager : NSObject
 
-+ (BOOL)isOn;
-+ (void)setIsOn:(BOOL)isOn;
-
 + (BOOL)isShakeOn;
-+ (void)setIsShakeOn:(BOOL)isShakeOn;
++ (void)setIsShakeOn:(BOOL)isOn;
 
-+ (CDPUserInfoEffectType)effectType;
-+ (void)setEffectType:(CDPUserInfoEffectType)effectType;
++ (BOOL)isSparkOn;
++ (void)setIsSparkOn:(BOOL)isOn;
+
++ (NSInteger)getClr;
++ (void)setClr:(NSInteger)clr;
 
 @end

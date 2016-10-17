@@ -12,129 +12,134 @@
 
 @interface CDPMainMenuItem ()
 
-@property(nonatomic, retain) NSMenuItem *switchItem;
-@property(nonatomic, retain) NSMenuItem *shakeItem;
-@property(nonatomic, retain) NSMenuItem *effectItem;
-@property(nonatomic, retain) NSMenuItem *effectWhiteItem;
-@property(nonatomic, retain) NSMenuItem *effectOrangeItem;
+@property(nonatomic, retain) NSMenuItem *shake;
+@property(nonatomic, retain) NSMenuItem *spark;
+@property(nonatomic, retain) NSMenuItem *version;
+@property(nonatomic, retain) NSMenuItem *clrCar;
+@property(nonatomic, retain) NSMenuItem *clrSche;
 
 @end
 
 @implementation CDPMainMenuItem
 
-+ (instancetype)item;
-{
++ (instancetype)item {
     CDPMainMenuItem *menuItem = [[CDPMainMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"CoderPower(%@)", CDPAppVersion] action:nil keyEquivalent:@""];
-    
+
     if (menuItem) {
-        NSMenu *mainMenu = [[NSMenu alloc] initWithTitle:@"CoderPower"];
+        NSMenu *mainMenu = [[[NSMenu alloc] initWithTitle:@"CoderPower"] autorelease];
         mainMenu.autoenablesItems = NO;
         menuItem.submenu = mainMenu;
-        [mainMenu release];
-        
-        // main
-        NSMenuItem *switchItem = [[NSMenuItem alloc] initWithTitle:@"Disable CoderPower" action:@selector(switchItemClick:) keyEquivalent:@""];
+
+        // shake item
+        NSMenuItem *switchItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Shake" action:@selector(shakeItemClick:) keyEquivalent:@""] autorelease];
         switchItem.target = menuItem;
         [mainMenu addItem:switchItem];
-        menuItem.switchItem = switchItem;
-        [switchItem release];
-        
-        [mainMenu addItem:[NSMenuItem separatorItem]];
-        
-        // shake
-        NSMenuItem *shakeItem = [[NSMenuItem alloc] initWithTitle:@"Disable Shake" action:@selector(shakeItemClick:) keyEquivalent:@""];
-        shakeItem.target = menuItem;
-        [mainMenu addItem:shakeItem];
-        menuItem.shakeItem = shakeItem;
-        [shakeItem release];
-        
-        // effect
-        NSMenuItem *effectItem = [[NSMenuItem alloc] initWithTitle:@"Typing Effect" action:nil keyEquivalent:@""];
-        [mainMenu addItem:effectItem];
-        menuItem.effectItem = effectItem;
-        [effectItem release];
-        
-        NSMenu *effectMenu = [[NSMenu alloc] initWithTitle:@""];
-        effectMenu.autoenablesItems = NO;
-        effectItem.submenu = effectMenu;
-        [effectMenu release];
-        
-        NSMenuItem *effectWhiteItem = [[NSMenuItem alloc] initWithTitle:@"White" action:@selector(effectWhiteItemClick:) keyEquivalent:@""];
-        effectWhiteItem.target = menuItem;
-        [effectMenu addItem:effectWhiteItem];
-        menuItem.effectWhiteItem = effectWhiteItem;
-        [effectWhiteItem release];
-        
-        NSMenuItem *effectOrangeItem = [[NSMenuItem alloc] initWithTitle:@"Orange" action:@selector(effectOrangeItemClick:) keyEquivalent:@""];
-        effectOrangeItem.target = menuItem;
-        [effectMenu addItem:effectOrangeItem];
-        menuItem.effectOrangeItem = effectOrangeItem;
-        [effectOrangeItem release];
-        
-        [menuItem updateTitles];
+        menuItem.shake = switchItem;
+
+		// buble
+		NSMenuItem *sparkItem = [[[NSMenuItem alloc] initWithTitle:@"Disable Spark" action:@selector(sparkItemClick:) keyEquivalent:@""] autorelease];
+		sparkItem.target = menuItem;
+		[mainMenu addItem:sparkItem];
+		menuItem.spark = sparkItem;
+
+		// color
+		NSMenuItem *colorItem = [[[NSMenuItem alloc] initWithTitle:@"Spark Colors" action:nil keyEquivalent:@""] autorelease];
+		colorItem.enabled = YES;
+
+		NSMenu *colorSubMenu = [[[NSMenu alloc] initWithTitle:@"color"] autorelease];
+		colorSubMenu.autoenablesItems = NO;
+		[colorSubMenu setAccessibilityEnabled:NO];
+
+		colorItem.submenu = colorSubMenu;
+
+		NSMenuItem *colorAtCaret = [[[NSMenuItem alloc] initWithTitle:@"At Caret" action:@selector(colorAtCaret:) keyEquivalent:@""] autorelease];
+		NSMenuItem *colorInScheme = [[[NSMenuItem alloc] initWithTitle:@"Color In Current Colorscheme" action:@selector(colorInScheme:) keyEquivalent:@""] autorelease];
+
+		colorAtCaret.target = menuItem;
+		colorInScheme.target = menuItem;
+		menuItem.clrCar = colorAtCaret;
+		menuItem.clrSche = colorInScheme;
+		[colorAtCaret setEnabled:YES];
+		[colorInScheme setEnabled:YES];
+
+		[colorSubMenu addItem:colorAtCaret];
+		[colorSubMenu addItem:colorInScheme];
+
+		[mainMenu addItem:colorItem];
+
+		// version
+		NSMenuItem *versionItem = [[NSMenuItem alloc] initWithTitle:[NSString stringWithFormat:@"version %@", CDPAppVersion] action:nil keyEquivalent:@""];
+		versionItem.enabled = NO;
+		[mainMenu addItem:versionItem];
+		menuItem.version = versionItem;
+
+		[menuItem updateTitles];
+
     }
     return [menuItem autorelease];
 }
 
 - (void)dealloc
 {
-    self.switchItem = nil;
-    self.shakeItem = nil;
-    self.effectItem = nil;
-    self.effectWhiteItem = nil;
-    self.effectOrangeItem = nil;
+    self.shake = nil;
+	self.spark = nil;
     [super dealloc];
 }
 
 #pragma mark -
 
-- (void)updateTitles
-{
-    _shakeItem.enabled = _effectItem.enabled = _effectWhiteItem.enabled = _effectOrangeItem.enabled = CDPUserInfoManager.isOn;
-    if (CDPUserInfoManager.isOn) {
-        _switchItem.title = @"Disable CoderPower";
-    } else {
-        _switchItem.title = @"Enable CoderPower";
-    }
+- (void)updateTitles {
     if (CDPUserInfoManager.isShakeOn) {
-        _shakeItem.title = @"Disable Shake";
+        self.shake.title = @"Disable Shake";
     } else {
-        _shakeItem.title = @"Enable Shake";
+        self.shake.title = @"Enable Shake";
     }
-    
-    if (CDPUserInfoManager.effectType == CDPUserInfoEffectTypeWhite) {
-        _effectWhiteItem.state = NSOnState;
-        _effectOrangeItem.state = NSOffState;
-    } else {
-        _effectWhiteItem.state = NSOffState;
-        _effectOrangeItem.state = NSOnState;
-    }
+
+	if (CDPUserInfoManager.isSparkOn) {
+		self.spark.title = @"Disable Spark";
+	} else {
+		self.spark.title = @"Enable Spark";
+	}
+
+	self.clrCar.state = 0;
+	self.clrSche.state = 0;
+	if (CDPUserInfoManager.isSparkOn) {
+		[self.clrCar setEnabled:YES];
+		[self.clrSche setEnabled:YES];
+		switch ([CDPUserInfoManager getClr]) {
+	  		case clrCrt:
+				self.clrCar.state = 1;
+				break;
+			case clrSch:
+				self.clrSche.state = 1;
+				break;
+			default:
+				break;
+		}
+	} else {
+		[self.clrCar setEnabled:NO];
+		[self.clrSche setEnabled:NO];
+	}
 }
 
-- (void)switchItemClick:(id)sender
-{
-    CDPUserInfoManager.isOn = !CDPUserInfoManager.isOn;
-    [self updateTitles];
-}
-
-- (void)shakeItemClick:(id)sender
-{
+- (void)shakeItemClick:(id)sender {
     CDPUserInfoManager.isShakeOn = !CDPUserInfoManager.isShakeOn;
     [self updateTitles];
-
 }
 
-- (void)effectWhiteItemClick:(id)sender
-{
-    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeWhite;
-    [self updateTitles];
+- (void)sparkItemClick:(id)sender {
+	CDPUserInfoManager.isSparkOn = !CDPUserInfoManager.isSparkOn;
+	[self updateTitles];
 }
 
-- (void)effectOrangeItemClick:(id)sender
-{
-    CDPUserInfoManager.effectType = CDPUserInfoEffectTypeOrange;
-    [self updateTitles];
+- (void)colorAtCaret:(id)sender {
+	[CDPUserInfoManager setClr:clrCrt];
+	[self updateTitles];
+}
 
+- (void)colorInScheme:(id)sender {
+	[CDPUserInfoManager setClr:clrSch];
+	[self updateTitles];
 }
 
 @end

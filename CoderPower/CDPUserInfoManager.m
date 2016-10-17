@@ -8,53 +8,46 @@
 
 #import "CDPUserInfoManager.h"
 
-#define kKeySwitch @"kKeySwitch"
 #define kKeyShake @"kKeyShake"
-#define kKeyBreathLight @"kKeyBreathLight"
-#define kKeyEffect @"kKeyEffect"
+#define kKeySpark @"kKeySpark"
+#define kClr @"kClr"
 
 @implementation CDPUserInfoManager
 
-+ (BOOL)isOn
-{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeySwitch]) {
-        [self setIsOn:YES];
-    }
-    return [[NSUserDefaults standardUserDefaults] boolForKey:kKeySwitch];
-}
-
-+ (void)setIsOn:(BOOL)isOn
-{
-    [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeySwitch];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-+ (BOOL)isShakeOn
-{
++ (BOOL)isShakeOn {
     if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyShake]) {
         [self setIsShakeOn:YES];
     }
     return [[NSUserDefaults standardUserDefaults] boolForKey:kKeyShake];
 }
 
-+ (void)setIsShakeOn:(BOOL)isShakeOn
-{
-    [[NSUserDefaults standardUserDefaults] setBool:isShakeOn forKey:kKeyShake];
++ (void)setIsShakeOn:(BOOL)isOn {
+    [[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeyShake];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-+ (CDPUserInfoEffectType)effectType
-{
-    if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeyEffect]) {
-        [self setEffectType:CDPUserInfoEffectTypeWhite];
-    }
-    return [[NSUserDefaults standardUserDefaults] integerForKey:kKeyEffect];
++ (BOOL)isSparkOn {
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:kKeySpark])
+		[self setIsSparkOn:YES];
+
+	return [[NSUserDefaults standardUserDefaults] boolForKey:kKeySpark];
 }
 
-+ (void)setEffectType:(CDPUserInfoEffectType)effectType
-{
-    [[NSUserDefaults standardUserDefaults] setInteger:effectType forKey:kKeyEffect];
-    [[NSUserDefaults standardUserDefaults] synchronize];
++ (void)setIsSparkOn:(BOOL)isOn {
+	[[NSUserDefaults standardUserDefaults] setBool:isOn forKey:kKeySpark];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+
++ (NSInteger)getClr {
+	if (![[NSUserDefaults standardUserDefaults] objectForKey:kClr])
+		[self setClr:clrCrt];
+
+	return [[NSUserDefaults standardUserDefaults] integerForKey:kClr];
+}
+
++ (void)setClr:(NSInteger)clr {
+	[[NSUserDefaults standardUserDefaults] setInteger:clr forKey:kClr];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+}
 @end

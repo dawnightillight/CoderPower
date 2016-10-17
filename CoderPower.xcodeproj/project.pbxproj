@@ -7,42 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD2150DD1C0C01A30029A779 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2150DC1C0C01A30029A779 /* AppKit.framework */; settings = {ASSET_TAGS = (); }; };
-		DD2150DF1C0C01A30029A779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2150DE1C0C01A30029A779 /* Foundation.framework */; settings = {ASSET_TAGS = (); }; };
+		6808EF3C1D25EE6F00B446C7 /* CDPMainMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 6808EF391D25EE6F00B446C7 /* CDPMainMenuItem.m */; };
+		6808EF3D1D25EE6F00B446C7 /* CDPUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 6808EF3B1D25EE6F00B446C7 /* CDPUserInfoManager.m */; };
+		6808EF401D25EED500B446C7 /* CDPViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6808EF3F1D25EED500B446C7 /* CDPViewAnimation.m */; };
+		6808EF431D25EEF600B446C7 /* NSNumber+Append.m in Sources */ = {isa = PBXBuildFile; fileRef = 6808EF421D25EEF600B446C7 /* NSNumber+Append.m */; };
+		6808EF461D25F18000B446C7 /* CDPSparkView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6808EF451D25F18000B446C7 /* CDPSparkView.m */; };
+		689AE2771D267CB800100658 /* CVDisplayLinkMgr.m in Sources */ = {isa = PBXBuildFile; fileRef = 689AE2761D267CB800100658 /* CVDisplayLinkMgr.m */; };
+		DD2150DD1C0C01A30029A779 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2150DC1C0C01A30029A779 /* AppKit.framework */; };
+		DD2150DF1C0C01A30029A779 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2150DE1C0C01A30029A779 /* Foundation.framework */; };
 		DD2150E31C0C01A30029A779 /* CoderPower.xcscheme in Resources */ = {isa = PBXBuildFile; fileRef = DD2150E21C0C01A30029A779 /* CoderPower.xcscheme */; };
 		DD2150E61C0C01A30029A779 /* CoderPower.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150E51C0C01A30029A779 /* CoderPower.m */; };
 		DD2150E91C0C01A30029A779 /* NSObject_Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150E81C0C01A30029A779 /* NSObject_Extension.m */; };
-		DD2150F71C0C03FD0029A779 /* CDPUserInfoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150F61C0C03FD0029A779 /* CDPUserInfoManager.m */; settings = {ASSET_TAGS = (); }; };
-		DD2150FA1C0C04460029A779 /* NSNumber+Append.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150F91C0C04460029A779 /* NSNumber+Append.m */; settings = {ASSET_TAGS = (); }; };
-		DD2150FD1C0C04EB0029A779 /* CDPViewAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150FC1C0C04EB0029A779 /* CDPViewAnimation.m */; settings = {ASSET_TAGS = (); }; };
-		DD2151001C0C05060029A779 /* NSView+BackgroundColor.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2150FF1C0C05060029A779 /* NSView+BackgroundColor.m */; settings = {ASSET_TAGS = (); }; };
-		DD2151031C0C30300029A779 /* CDPMainMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = DD2151021C0C30300029A779 /* CDPMainMenuItem.m */; settings = {ASSET_TAGS = (); }; };
-		DD5ED50E1C0C8194004D4D93 /* CDPDot.m in Sources */ = {isa = PBXBuildFile; fileRef = DD5ED50D1C0C8194004D4D93 /* CDPDot.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6808EF381D25EE6F00B446C7 /* CDPMainMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPMainMenuItem.h; sourceTree = "<group>"; };
+		6808EF391D25EE6F00B446C7 /* CDPMainMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CDPMainMenuItem.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6808EF3A1D25EE6F00B446C7 /* CDPUserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CDPUserInfoManager.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		6808EF3B1D25EE6F00B446C7 /* CDPUserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CDPUserInfoManager.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6808EF3E1D25EED500B446C7 /* CDPViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPViewAnimation.h; sourceTree = "<group>"; };
+		6808EF3F1D25EED500B446C7 /* CDPViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPViewAnimation.m; sourceTree = "<group>"; };
+		6808EF411D25EEF600B446C7 /* NSNumber+Append.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Append.h"; sourceTree = "<group>"; };
+		6808EF421D25EEF600B446C7 /* NSNumber+Append.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Append.m"; sourceTree = "<group>"; };
+		6808EF441D25F18000B446C7 /* CDPSparkView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CDPSparkView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		6808EF451D25F18000B446C7 /* CDPSparkView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CDPSparkView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		6846E72E1D4207AC00AAB75F /* DVTFontAndColorTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTFontAndColorTheme.h; sourceTree = "<group>"; };
+		684EC8FB1D41FB7F00A1A70F /* DVTTextStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DVTTextStorage.h; sourceTree = "<group>"; };
+		689AE2751D267CB800100658 /* CVDisplayLinkMgr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CVDisplayLinkMgr.h; sourceTree = "<group>"; };
+		689AE2761D267CB800100658 /* CVDisplayLinkMgr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CVDisplayLinkMgr.m; sourceTree = "<group>"; };
+		689AE2781D26825200100658 /* CDPBubleAnimateDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CDPBubleAnimateDelegate.h; sourceTree = "<group>"; };
 		DD2150D91C0C01A30029A779 /* CoderPower.xcplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoderPower.xcplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD2150DC1C0C01A30029A779 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		DD2150DE1C0C01A30029A779 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		DD2150E21C0C01A30029A779 /* CoderPower.xcscheme */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = CoderPower.xcscheme; path = CoderPower.xcodeproj/xcshareddata/xcschemes/CoderPower.xcscheme; sourceTree = SOURCE_ROOT; };
 		DD2150E41C0C01A30029A779 /* CoderPower.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoderPower.h; sourceTree = "<group>"; };
-		DD2150E51C0C01A30029A779 /* CoderPower.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoderPower.m; sourceTree = "<group>"; };
+		DD2150E51C0C01A30029A779 /* CoderPower.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CoderPower.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		DD2150E71C0C01A30029A779 /* NSObject_Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSObject_Extension.h; sourceTree = "<group>"; };
 		DD2150E81C0C01A30029A779 /* NSObject_Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSObject_Extension.m; sourceTree = "<group>"; };
 		DD2150EA1C0C01A30029A779 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DD2150F51C0C03FD0029A779 /* CDPUserInfoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPUserInfoManager.h; sourceTree = "<group>"; };
-		DD2150F61C0C03FD0029A779 /* CDPUserInfoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPUserInfoManager.m; sourceTree = "<group>"; };
-		DD2150F81C0C04460029A779 /* NSNumber+Append.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNumber+Append.h"; sourceTree = "<group>"; };
-		DD2150F91C0C04460029A779 /* NSNumber+Append.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSNumber+Append.m"; sourceTree = "<group>"; };
-		DD2150FB1C0C04EB0029A779 /* CDPViewAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPViewAnimation.h; sourceTree = "<group>"; };
-		DD2150FC1C0C04EB0029A779 /* CDPViewAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPViewAnimation.m; sourceTree = "<group>"; };
-		DD2150FE1C0C05060029A779 /* NSView+BackgroundColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+BackgroundColor.h"; sourceTree = "<group>"; };
-		DD2150FF1C0C05060029A779 /* NSView+BackgroundColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+BackgroundColor.m"; sourceTree = "<group>"; };
-		DD2151011C0C30300029A779 /* CDPMainMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPMainMenuItem.h; sourceTree = "<group>"; };
-		DD2151021C0C30300029A779 /* CDPMainMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPMainMenuItem.m; sourceTree = "<group>"; };
 		DD2151041C0C32810029A779 /* Defination.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Defination.h; sourceTree = "<group>"; };
-		DD5ED50C1C0C8194004D4D93 /* CDPDot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDPDot.h; sourceTree = "<group>"; };
-		DD5ED50D1C0C8194004D4D93 /* CDPDot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDPDot.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,9 +90,23 @@
 		DD2150E01C0C01A30029A779 /* CoderPower */ = {
 			isa = PBXGroup;
 			children = (
-				DD2150F01C0C02180029A779 /* Classes */,
+				6846E72E1D4207AC00AAB75F /* DVTFontAndColorTheme.h */,
+				684EC8FB1D41FB7F00A1A70F /* DVTTextStorage.h */,
+				6808EF411D25EEF600B446C7 /* NSNumber+Append.h */,
+				6808EF421D25EEF600B446C7 /* NSNumber+Append.m */,
+				6808EF3E1D25EED500B446C7 /* CDPViewAnimation.h */,
+				6808EF3F1D25EED500B446C7 /* CDPViewAnimation.m */,
+				6808EF381D25EE6F00B446C7 /* CDPMainMenuItem.h */,
+				6808EF391D25EE6F00B446C7 /* CDPMainMenuItem.m */,
+				6808EF3A1D25EE6F00B446C7 /* CDPUserInfoManager.h */,
+				6808EF3B1D25EE6F00B446C7 /* CDPUserInfoManager.m */,
 				DD2150E41C0C01A30029A779 /* CoderPower.h */,
 				DD2150E51C0C01A30029A779 /* CoderPower.m */,
+				689AE2751D267CB800100658 /* CVDisplayLinkMgr.h */,
+				689AE2761D267CB800100658 /* CVDisplayLinkMgr.m */,
+				6808EF441D25F18000B446C7 /* CDPSparkView.h */,
+				6808EF451D25F18000B446C7 /* CDPSparkView.m */,
+				689AE2781D26825200100658 /* CDPBubleAnimateDelegate.h */,
 				DD2151041C0C32810029A779 /* Defination.h */,
 				DD2150EA1C0C01A30029A779 /* Info.plist */,
 				DD2150E71C0C01A30029A779 /* NSObject_Extension.h */,
@@ -105,33 +122,6 @@
 				DD2150E21C0C01A30029A779 /* CoderPower.xcscheme */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		DD2150F01C0C02180029A779 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				DD2150F21C0C027D0029A779 /* Category */,
-				DD5ED50C1C0C8194004D4D93 /* CDPDot.h */,
-				DD5ED50D1C0C8194004D4D93 /* CDPDot.m */,
-				DD2151011C0C30300029A779 /* CDPMainMenuItem.h */,
-				DD2151021C0C30300029A779 /* CDPMainMenuItem.m */,
-				DD2150F51C0C03FD0029A779 /* CDPUserInfoManager.h */,
-				DD2150F61C0C03FD0029A779 /* CDPUserInfoManager.m */,
-				DD2150FB1C0C04EB0029A779 /* CDPViewAnimation.h */,
-				DD2150FC1C0C04EB0029A779 /* CDPViewAnimation.m */,
-			);
-			name = Classes;
-			sourceTree = "<group>";
-		};
-		DD2150F21C0C027D0029A779 /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				DD2150F81C0C04460029A779 /* NSNumber+Append.h */,
-				DD2150F91C0C04460029A779 /* NSNumber+Append.m */,
-				DD2150FE1C0C05060029A779 /* NSView+BackgroundColor.h */,
-				DD2150FF1C0C05060029A779 /* NSView+BackgroundColor.m */,
-			);
-			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -201,14 +191,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD2150F71C0C03FD0029A779 /* CDPUserInfoManager.m in Sources */,
-				DD5ED50E1C0C8194004D4D93 /* CDPDot.m in Sources */,
-				DD2150FD1C0C04EB0029A779 /* CDPViewAnimation.m in Sources */,
-				DD2150FA1C0C04460029A779 /* NSNumber+Append.m in Sources */,
-				DD2151031C0C30300029A779 /* CDPMainMenuItem.m in Sources */,
+				689AE2771D267CB800100658 /* CVDisplayLinkMgr.m in Sources */,
+				6808EF3D1D25EE6F00B446C7 /* CDPUserInfoManager.m in Sources */,
+				6808EF401D25EED500B446C7 /* CDPViewAnimation.m in Sources */,
 				DD2150E61C0C01A30029A779 /* CoderPower.m in Sources */,
+				6808EF431D25EEF600B446C7 /* NSNumber+Append.m in Sources */,
+				6808EF3C1D25EE6F00B446C7 /* CDPMainMenuItem.m in Sources */,
 				DD2150E91C0C01A30029A779 /* NSObject_Extension.m in Sources */,
-				DD2151001C0C05060029A779 /* NSView+BackgroundColor.m in Sources */,
+				6808EF461D25F18000B446C7 /* CDPSparkView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
